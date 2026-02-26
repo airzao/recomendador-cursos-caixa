@@ -431,45 +431,20 @@ with aba4:
 </div>
 """, unsafe_allow_html=True)
 
-    # Tabela HTML Personalizada para lidar com <br> e formatação
+    # Tabela de Negócios e Problema
     st.markdown("""
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th style="width: 20%;">Aspecto</th>
-          <th>Detalhe</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><b>Problema</b></td>
-          <td>Atualmente, na CAIXA, diferentes perfis (ex.: operações, atendimento, riscos, compliance, TI, dados) possuem demandas e usos distintos de IA como automação, agentes, RAG, machine learning, explicabilidade, etc. No entanto, como o tema é novo, os usuários precisam de auxílio para encontrar o treinamento que mais se aproxima de suas necessidades reais. Isso leva a:<br><br>• Baixa aplicação prática após o curso;<br>• Desperdício de investimento em treinamento;<br>• Risco de uso inadequado de IA em contextos críticos (ex.: risco/compliance/jurídico).</td>
-        </tr>
-        <tr>
-          <td><b>Objetivo</b></td>
-          <td>Acelerar a adoção de inteligência artificial de forma segura e alinhada às necessidades reais das áreas.</td>
-        </tr>
-        <tr>
-          <td><b>Solução</b></td>
-          <td>Será desenvolvido um modelo de <i>machine learning</i> para recomendação de curso/trilha de IA com base em um <i>assessment</i> que considera informações reais dos funcionários (perfil funcional, tipo de atividade, objetivo com IA, impacto do erro, forma de uso e nível de programação).</td>
-        </tr>
-        <tr>
-          <td><b>ROI</b></td>
-          <td>O ROI esperado do projeto está na redução de custos e do tempo despendido com treinamentos em IA pouco aderentes, aliada ao aumento da efetividade do uso de IA na Caixa.</td>
-        </tr>
-        <tr>
-          <td><b>Stakeholders</b></td>
-          <td>Áreas de negócio usuárias de IA (operações, atendimento, riscos, compliance, TI e dados), além das áreas de RH/L&D, governança de IA e liderança, responsáveis pela capacitação.</td>
-        </tr>
-        <tr>
-          <td><b>Critério de sucesso</b></td>
-          <td>O projeto será considerado bem-sucedido quando o modelo recomendar cursos ou trilhas de IA com, no mínimo, 80% de aderência percebida pelos usuários no pós-treinamento, e com taxa de conclusão de no mínimo 70%.</td>
-        </tr>
-      </tbody>
-    </table>
-    """, unsafe_allow_html=True)
+### 🎯 Contexto e Valor de Negócio
 
-    st.markdown("---")
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **Problema** | Atualmente, na CAIXA, diferentes perfis (ex.: operações, atendimento, riscos, compliance, TI, dados) possuem demandas e usos distintos de IA como automação, agentes, RAG, machine learning, explicabilidade, etc. No entanto, como o tema é novo, os usuários precisam de auxílio para encontrar o treinamento que mais se aproxima de suas necessidades reais. Isso leva a:<br><br>• Baixa aplicação prática após o curso;<br>• Desperdício de investimento em treinamento;<br>• Risco de uso inadequado de IA em contextos críticos (ex.: risco/compliance/jurídico). |
+| **Objetivo** | Acelerar a adoção de inteligência artificial de forma segura e alinhada às necessidades reais das áreas. |
+| **Solução** | Será desenvolvido um modelo de *machine learning* para recomendação de curso/trilha de IA com base em um *assessment* que considera informações reais dos funcionários (perfil funcional, tipo de atividade, objetivo com IA, impacto do erro, forma de uso e nível de programação). |
+| **ROI** | O ROI esperado do projeto está na redução de custos e do tempo despendido com treinamentos em IA pouco aderentes, aliada ao aumento da efetividade do uso de IA na Caixa. |
+| **Stakeholders** | Áreas de negócio usuárias de IA (operações, atendimento, riscos, compliance, TI e dados), além das áreas de RH/L&D, governança de IA e liderança, responsáveis pela capacitação. |
+| **Critério de sucesso** | O projeto será considerado bem-sucedido quando o modelo recomendar cursos ou trilhas de IA com, no mínimo, 80% de aderência percebida pelos usuários no pós-treinamento, e com taxa de conclusão de no mínimo 70%. |
+
+---
     
     st.markdown(f"<h3 style='color:{CA_ESCURO};'>📂 Dataset de treinamento</h3>", unsafe_allow_html=True)
     st.markdown("""
