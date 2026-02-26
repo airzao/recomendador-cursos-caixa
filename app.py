@@ -1,3 +1,6 @@
+
+Copiar
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -18,9 +21,6 @@ CA_BRANCO  = "#FFFFFF"
 # ── CSS: apenas fundo claro + inputs. SEM regra de cor geral em p/span. ──
 st.markdown("""
 <style>
-/* Força texto branco nos banners (evita herança escura) */
-.banner-white, .banner-white * { color: #FFFFFF !important; }
-
 html, body,
 [data-testid="stAppViewContainer"],
 [data-testid="stMain"],
@@ -78,6 +78,19 @@ tbody tr:nth-child(even) td { background-color: #E8F4FF !important; }
 [data-testid="baseButton-primary"] {
     background-color: #0070B8 !important; color: white !important;
     font-weight: 700 !important; border-radius: 8px !important; border: none !important;
+}
+/* Garantir texto branco em elementos com background colorido */
+div[style*="background:linear-gradient"] h1,
+div[style*="background:linear-gradient"] h2,
+div[style*="background:linear-gradient"] h3,
+div[style*="background:linear-gradient"] h4,
+div[style*="background:linear-gradient"] p,
+div[style*="background:linear-gradient"] span,
+div[style*="background:#0070B8"] *,
+div[style*="background:#003F8A"] *,
+div[style*="background:#F5A623"] *,
+div[style*="background:#00A859"] * {
+    color: #ffffff !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -185,6 +198,39 @@ with aba2:
 
         st.divider()
         st.markdown(f"<h3 style='color:{CA_ESCURO};'>📊 Probabilidade — Todos os Cursos</h3>", unsafe_allow_html=True)
+    
+    # Seções de confiança por trilha
+    st.divider()
+    st.markdown(f"<h3 style='color:{CA_ESCURO};margin-bottom:16px;'>📚 Confiança por Trilha de Aprendizado</h3>", unsafe_allow_html=True)
+    
+    col_f1, col_f2, col_f3 = st.columns(3)
+    
+    with col_f1:
+        st.markdown(f"""
+<div style="background:linear-gradient(135deg,{CA_AZUL} 0%,{CA_ESCURO} 100%);
+            padding:20px;border-radius:10px;text-align:center;box-shadow:0 4px 12px rgba(0,63,138,0.15);">
+  <h2 style="margin:0;font-size:2.5rem;font-weight:900;color:#ffffff !important;">80,7%</h2>
+  <h4 style="margin:8px 0 0 0;color:#ffffff !important;font-size:1rem;font-weight:600;">🧠 Fundamentos de IA</h4>
+  <p style="margin:6px 0 0 0;color:#ffffff !important;font-size:0.85rem;opacity:0.9;">Altamente recomendado</p>
+</div>""", unsafe_allow_html=True)
+    
+    with col_f2:
+        st.markdown(f"""
+<div style="background:linear-gradient(135deg,{CA_LARANJA} 0%,#E08B00 100%);
+            padding:20px;border-radius:10px;text-align:center;box-shadow:0 4px 12px rgba(245,166,35,0.15);">
+  <h2 style="margin:0;font-size:2.5rem;font-weight:900;color:#ffffff !important;">11,5%</h2>
+  <h4 style="margin:8px 0 0 0;color:#ffffff !important;font-size:1rem;font-weight:600;">💡 Prompting com IA</h4>
+  <p style="margin:6px 0 0 0;color:#ffffff !important;font-size:0.85rem;opacity:0.9;">Intermediário</p>
+</div>""", unsafe_allow_html=True)
+    
+    with col_f3:
+        st.markdown(f"""
+<div style="background:linear-gradient(135deg,#4A7C59 0%,#2D5A3D 100%);
+            padding:20px;border-radius:10px;text-align:center;box-shadow:0 4px 12px rgba(74,124,89,0.15);">
+  <h2 style="margin:0;font-size:2.5rem;font-weight:900;color:#ffffff !important;">6,1%</h2>
+  <h4 style="margin:8px 0 0 0;color:#ffffff !important;font-size:1rem;font-weight:600;">🚀 IA para Negócios</h4>
+  <p style="margin:6px 0 0 0;color:#ffffff !important;font-size:0.85rem;opacity:0.9;">Básico</p>
+</div>""", unsafe_allow_html=True)
 
         col_v1, col_v2 = st.columns([2, 1])
         with col_v1:
@@ -406,4 +452,12 @@ with aba4:
 - **Versionamento:** GitHub
 - **Hosting:** Streamlit Cloud (CI/CD automático)
 
+---
+
+### 💡 Próximos Passos
+
+✅ Pronto para produção — link público e funcional  
+🔜 Feedback loop + retraining periódico  
+🔜 SHAP values para explicar cada predição individualmente  
+🔜 Integração com LMS corporativo
     """)
