@@ -80,7 +80,7 @@ label,
     border-radius: 8px 8px 0 0;
     padding: 10px 20px;
 }
-.stTabs [aria-selected="true"] {
+.stTabs[aria-selected="true"] {
     color: #0070B8 !important;
     background-color: #ffffff !important;
     border-bottom: 3px solid #0070B8 !important;
@@ -91,13 +91,24 @@ thead tr th { background-color: #0070B8 !important; color: white !important; pad
 tbody tr td { color: #333333 !important; padding: 8px !important; }
 tbody tr:nth-child(even) td { background-color: #E8F4FF !important; }
 
-/* Métricas nativas */
-[data-testid="metric-container"] { background: white; border-radius: 8px; padding: 12px; border: 1px solid #dee2e6; }
-[data-testid="metric-container"] label { color: #555555 !important; }
-[data-testid="metric-container"] [data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }
+/* ===== MÉTRICAS NATIVAS (Ajustado para o Dataset) ===== */[data-testid="metric-container"],
+[data-testid="stMetric"] { 
+    background-color: #ffffff !important; 
+    border-radius: 10px !important; 
+    padding: 16px !important; 
+    border: 1px solid #dee2e6 !important; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important;
+}
+[data-testid="stMetricLabel"] *,[data-testid="metric-container"] label { 
+    color: #555555 !important; 
+    font-weight: 600 !important;
+}
+[data-testid="stMetricValue"] *,[data-testid="stMetricValue"] { 
+    color: #003F8A !important; 
+    font-weight: 900 !important; 
+}
 
-/* Botão */
-[data-testid="baseButton-primary"] {
+/* Botão */[data-testid="baseButton-primary"] {
     background-color: #0070B8 !important; color: white !important;
     font-weight: 700 !important; border-radius: 8px !important; border: none !important;
 }
@@ -189,7 +200,6 @@ with aba2:
             curso = classes[idx]
             conf  = proba[idx] * 100
             
-            # Repare o uso do class="banner-white"
             st.markdown(f"""
 <div class="banner-white" 
      style="background:{fundos[i]};padding:28px 32px;border-radius:14px;
@@ -421,22 +431,4 @@ with aba4:
 | **Weighted F1** | 92,9% | Ponderado pelo tamanho da classe |
 | **Top-3 Accuracy** | **99,0%** | Curso ideal entre os 3 recomendados |
 
----
-
-### 🚀 Deployment & Tecnologias
-
-- **Linguagem:** Python 3.13
-- **ML:** Scikit-learn 1.6.1 (StackingClassifier)
-- **Frontend:** Streamlit 1.54
-- **Versionamento:** GitHub
-- **Hosting:** Streamlit Cloud (CI/CD automático)
-
----
-
-### 💡 Próximos Passos
-
-✅ Pronto para produção — link público e funcional  
-🔜 Feedback loop + retraining periódico  
-🔜 SHAP values para explicar cada predição individualmente  
-🔜 Integração com LMS corporativo
     """)
