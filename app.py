@@ -86,16 +86,19 @@ div[data-baseweb="slider"] { margin-top: 15px; }
 [data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #e0e0e0; }
 
 /* Botão de Ação (CTA) */
-[data-testid="baseButton-primary"] { 
+[data-testid="baseButton-primary"],
+[data-testid="baseButton-primary"] *,
+[data-testid="baseButton-primary"] span {
     background: linear-gradient(90deg, #0070B8 0%, #003F8A 100%) !important;
-    color: white !important; 
-    font-weight: 700 !important; 
-    border-radius: 8px !important; 
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
     border: none !important;
     padding: 0.5rem 1rem;
     box-shadow: 0 4px 12px rgba(0, 63, 138, 0.3);
     transition: all 0.3s ease;
 }
+
 [data-testid="baseButton-primary"]:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 63, 138, 0.4);
