@@ -20,7 +20,7 @@ CA_CLARO   = "#F0F7FF"
 CA_BRANCO  = "#FFFFFF"
 
 # ═══════════════════════════════════════════
-# CSS GLOBAL E DA SIDEBAR
+# CSS GLOBAL BLINDADO (CONTRA DARK MODE)
 # ═══════════════════════════════════════════
 st.markdown("""
 <style>
@@ -36,41 +36,90 @@ html, body, [data-testid="stAppViewContainer"],[data-testid="stMain"], [data-tes
 }
 
 /* Labels dos inputs */
-label,[data-testid="stWidgetLabel"] p {
+label, [data-testid="stWidgetLabel"] p {
     color: #333333 !important; 
     font-weight: 600 !important; 
     font-size: 0.95rem !important;
 }
 
 /* ======== CORREÇÃO DOS SELECTBOX (Caixas de seleção) ======== */
-[data-testid="stSelectbox"] > div > div { 
+/* Fundo e borda do selectbox */[data-testid="stSelectbox"] > div > div { 
     background-color: #ffffff !important; 
     border: 1.5px solid #0070B8 !important; 
     border-radius: 6px !important; 
 }
-/* Força a cor do texto selecionado na caixa */
-[data-baseweb="select"] span {
+/* Força a cor da fonte da opção SELECIONADA na caixinha */
+[data-baseweb="select"] * {
     color: #333333 !important;
 }
-/* Força a cor do texto na lista suspensa (dropdown) */
+/* Força a cor do fundo e da fonte da LISTA SUSPENSA (popover) */
+div[data-baseweb="popover"], div[data-baseweb="popover"] div, div[data-baseweb="popover"] ul {
+    background-color: #ffffff !important;
+}
 div[data-baseweb="popover"] ul li {
     color: #333333 !important;
+    background-color: #ffffff !important;
+}
+/* Efeito ao passar o mouse nas opções da lista */
+div[data-baseweb="popover"] ul li:hover {
+    background-color: #E8F4FF !important;
+    color: #0070B8 !important;
 }
 
 /* ======== CORREÇÃO DAS ABAS (TABS) ======== */
-.stTabs[data-baseweb="tab-list"] { border-bottom: 3px solid #0070B8 !important; background-color: #F0F7FF !important; }
-.stTabs[data-baseweb="tab"] { background-color: transparent !important; }
-.stTabs[data-baseweb="tab"] p { color: #333333 !important; font-weight: 600 !important; font-size: 1.05rem !important; }
-.stTabs [aria-selected="true"] { background-color: #ffffff !important; border-bottom: 3px solid #0070B8 !important; border-radius: 8px 8px 0 0; }
-.stTabs[aria-selected="true"] p { color: #0070B8 !important; }
+.stTabs [data-baseweb="tab-list"] { 
+    border-bottom: 3px solid #0070B8 !important; 
+    background-color: #F0F7FF !important; 
+}
+.stTabs [data-baseweb="tab"] { 
+    background-color: transparent !important; 
+}
+.stTabs [data-baseweb="tab"] p { 
+    color: #888888 !important; /* Cor da aba inativa */
+    font-weight: 600 !important; 
+    font-size: 1.05rem !important; 
+}
+.stTabs [aria-selected="true"] { 
+    background-color: #ffffff !important; 
+    border-bottom: 3px solid #0070B8 !important; 
+    border-radius: 8px 8px 0 0; 
+}
+.stTabs [aria-selected="true"] p { 
+    color: #0070B8 !important; /* Cor da aba ativa */
+}
 
 /* ======== CORREÇÃO DA SIDEBAR E MENU RADIO ======== */
-[data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #dee2e6; }[data-testid="stSidebar"] h2, [data-testid="stSidebar"] p,[data-testid="stSidebar"] span, [data-testid="stSidebar"] label { color: #333333 !important; }
-[data-testid="stRadio"] label p { color: #333333 !important; font-weight: 500 !important; }
+[data-testid="stSidebar"] { 
+    background-color: #ffffff !important; 
+    border-right: 1px solid #dee2e6; 
+}[data-testid="stSidebar"] h2, [data-testid="stSidebar"] p,[data-testid="stSidebar"] span, [data-testid="stSidebar"] label { 
+    color: #333333 !important; 
+}
+[data-testid="stRadio"] label p { 
+    color: #333333 !important; 
+    font-weight: 500 !important; 
+}
 
-/* Métricas Nativas */[data-testid="metric-container"], [data-testid="stMetric"] { background-color: #ffffff !important; border-radius: 10px !important; padding: 16px !important; border: 1px solid #dee2e6 !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; }[data-testid="stMetricLabel"] *, [data-testid="metric-container"] label { color: #555555 !important; font-weight: 600 !important; }[data-testid="stMetricValue"] *, [data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }
-
-/* Botão principal */[data-testid="baseButton-primary"] { background-color: #0070B8 !important; color: white !important; font-weight: 700 !important; border-radius: 8px !important; border: none !important; }
+/* ======== MÉTRICAS E BOTÕES ======== */
+[data-testid="metric-container"],[data-testid="stMetric"] { 
+    background-color: #ffffff !important; 
+    border-radius: 10px !important; 
+    padding: 16px !important; 
+    border: 1px solid #dee2e6 !important; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; 
+}
+[data-testid="stMetricLabel"] *, [data-testid="metric-container"] label { 
+    color: #555555 !important; font-weight: 600 !important; 
+}[data-testid="stMetricValue"] *, [data-testid="stMetricValue"] { 
+    color: #003F8A !important; font-weight: 900 !important; 
+}
+[data-testid="baseButton-primary"] { 
+    background-color: #0070B8 !important; 
+    color: white !important; 
+    font-weight: 700 !important; 
+    border-radius: 8px !important; 
+    border: none !important; 
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -181,7 +230,7 @@ with aba2:
     else:
         proba    = model_ativo.predict_proba(st.session_state["inp"])[0]
         top_idx  = np.argsort(-proba)[:3]
-        medalhas =["🥇","🥈","🥉"]
+        medalhas = ["🥇","🥈","🥉"]
         fundos   =[
             f"linear-gradient(135deg,{cor_tema} 0%,{CA_ESCURO} 100%)",
             f"linear-gradient(135deg,{CA_LARANJA} 0%,#E08B00 100%)",
