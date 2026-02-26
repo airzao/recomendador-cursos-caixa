@@ -438,12 +438,4 @@ with aba4:
 
 ---
 
-### 💡 Impacto & Próximos Passos
-
-✅ Interface intuitiva — qualquer empregado consegue usar  
-✅ Deploy em produção — link público e funcional  
-✅ Alta acurácia — confiável para tomada de decisão  
-🔜 Feedback loop + retraining periódico  
-🔜 SHAP values para explicar cada predição individualmente  
-🔜 Integração com LMS corporativo
     """)
