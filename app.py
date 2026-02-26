@@ -431,7 +431,7 @@ with aba4:
 </div>
 """, unsafe_allow_html=True)
 
-    # Tabela HTML Personalizada (Aspecto | Detalhe)
+    # Tabela HTML Personalizada para lidar com <br> e formatação
     st.markdown("""
     <table class="custom-table">
       <thead>
