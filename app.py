@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # Configuração da página
 st.set_page_config(
-    page_title="Plataforma de Direcionamento Estratégico de Capacitação", 
+    page_title="Recomendador de Cursos — CAIXA", 
     page_icon="🏦", 
     layout="wide", 
     initial_sidebar_state="expanded"
@@ -85,23 +85,18 @@ div[data-baseweb="slider"] { margin-top: 15px; }
 /* Sidebar */
 [data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #e0e0e0; }
 
-/* Botão Primary - versão compatível Streamlit novo */
-button[kind="primary"] {
+/* Botão de Ação (CTA) */
+[data-testid="baseButton-primary"] { 
     background: linear-gradient(90deg, #0070B8 0%, #003F8A 100%) !important;
-    color: #FFFFFF !important;
-    font-weight: 700 !important;
-    border-radius: 8px !important;
+    color: white !important; 
+    font-weight: 700 !important; 
+    border-radius: 8px !important; 
     border: none !important;
     padding: 0.5rem 1rem;
     box-shadow: 0 4px 12px rgba(0, 63, 138, 0.3);
     transition: all 0.3s ease;
 }
-
-button[kind="primary"] span {
-    color: #FFFFFF !important;
-}
-
-button[kind="primary"]:hover {
+[data-testid="baseButton-primary"]:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 63, 138, 0.4);
 }
@@ -219,7 +214,7 @@ st.markdown(f"""
             padding:32px 40px;border-radius:12px;margin-bottom:24px;
             box-shadow:0 8px 32px rgba(0,63,138,0.2);">
   <h1 style="margin:0;font-size:2.2rem;font-weight:800;letter-spacing:-0.5px;">
-    🏦 Plataforma de Direcionamento Estratégico de Capacitação
+    🏦 Recomendador de Trilhas de IA
   </h1>
   <div style="display:flex;align-items:center;gap:12px;margin-top:12px;">
      <span style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:0.85rem;font-weight:600;">Caixa Econômica Federal</span>
@@ -270,7 +265,7 @@ with aba1:
     # Botão centralizado e grande
     _, col_btn, _ = st.columns([1, 2, 1])
     with col_btn:
-        if st.button("OBTER DIRECIONAMENTO PERSONALIZADO🚀", type="primary", use_container_width=True):
+        if st.button("GERAR RECOMENDAÇÃO PERSONALIZADA 🚀", type="primary", use_container_width=True):
             st.session_state["inp"] = pd.DataFrame([{
                 "area": area,
                 "funcao": funcao,
@@ -412,7 +407,7 @@ with aba3:
         """)
 
 # ══════════════════════════════════════════════════════════════════════
-# ABA 4 — DETALHES DO PROJETO (COM TABELA HTML E CONTEÚDO RESTAURADO)
+# ABA 4 — DETALHES DO PROJETO (MERGE DO CONTEÚDO)
 # ══════════════════════════════════════════════════════════════════════
 with aba4:
     st.markdown(f"<h2 style='color:{CA_AZUL};'>📄 Detalhes do Projeto</h2>", unsafe_allow_html=True)
@@ -436,7 +431,7 @@ with aba4:
 </div>
 """, unsafe_allow_html=True)
 
-    # Tabela HTML Personalizada (Aspecto | Detalhe)
+    # Tabela HTML Personalizada para lidar com <br> e formatação
     st.markdown("""
     <table class="custom-table">
       <thead>
@@ -486,7 +481,7 @@ O dataset de treinamento foi construído a partir de benchmarks derivados de um 
 Foi desenvolvido um notebook de validação e tratamento de qualidade do dataset com o objetivo de assegurar a integridade dos dados utilizados no treinamento. Esse notebook busca garantir que, mesmo após a geração de dados sintéticos, todas as linhas permaneçam aderentes às regras e restrições do modelo (ex.: formatos, domínios permitidos e coerência entre campos), além de identificar e remover registros duplicados e potenciais inconsistências que possam comprometer a performance e a confiabilidade do modelo.
     """)
 
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>⚙️ Metodologia de projeto (CRISP-DM)</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='color:{CA_ESCURO};'>⚙️ Metodologia de projeto</h3>", unsafe_allow_html=True)
     st.markdown("""
 O projeto foi desenvolvido seguindo a metodologia **CRISP-DM**, com fases bem definidas e encadeadas, estruturada nas seguintes etapas:
 
@@ -514,15 +509,25 @@ Como resultado da primeira etapa (Entendimento do Negócio e dos Dados), foi ela
 
     st.markdown(f"<h3 style='color:{CA_ESCURO};'>🧬 As 9 Features do Modelo</h3>", unsafe_allow_html=True)
     st.markdown("""
-| # | Feature | Tipo | Processamento no Pipeline |
-|---|---------|------|---------------------------|
-| 1 | Área de atuação | Categórica | `OneHotEncoder` |
-| 2 | Função/Cargo | Categórica | `OneHotEncoder` |
-| 3 | Tempo de casa | Numérica | `StandardScaler` |
-| 4 | Já utilizou IA | Binária | `OneHotEncoder` |
-| 5 | Atividade principal | Categórica | `OneHotEncoder` |
-| 6 | Objetivo 6 meses | Categórica | `OneHotEncoder` |
-| 7 | Impacto do erro | Categórica | `OneHotEncoder` |
-| 8 | Forma de uso de IA | Categórica | `OneHotEncoder` |
-| 9 | Nível de programação | Categórica | `OneHotEncoder` |
-    """)
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Feature</th>
+          <th>Tipo</th>
+          <th>Processamento no Pipeline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Área de atuação</td><td>Categórica</td><td>OneHotEncoder</td></tr>
+        <tr><td>2</td><td>Função/Cargo</td><td>Categórica</td><td>OneHotEncoder</td></tr>
+        <tr><td>3</td><td>Tempo de casa</td><td>Numérica</td><td>StandardScaler</td></tr>
+        <tr><td>4</td><td>Já utilizou IA</td><td>Binária</td><td>OneHotEncoder</td></tr>
+        <tr><td>5</td><td>Atividade principal</td><td>Categórica</td><td>OneHotEncoder</td></tr>
+        <tr><td>6</td><td>Objetivo 6 meses</td><td>Categórica</td><td>OneHotEncoder</td></tr>
+        <tr><td>7</td><td>Impacto do erro</td><td>Categórica</td><td>OneHotEncoder</td></tr>
+        <tr><td>8</td><td>Forma de uso de IA</td><td>Categórica</td><td>OneHotEncoder</td></tr>
+        <tr><td>9</td><td>Nível de programação</td><td>Categórica</td><td>OneHotEncoder</td></tr>
+      </tbody>
+    </table>
+    """, unsafe_allow_html=True)
