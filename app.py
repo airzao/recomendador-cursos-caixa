@@ -25,7 +25,7 @@ CA_BRANCO  = "#FFFFFF"
 st.markdown("""
 <style>
 /* Fundo e textos gerais */
-html, body,[data-testid="stAppViewContainer"], [data-testid="stMain"],[data-testid="block-container"], section.main, .main {
+html, body, [data-testid="stAppViewContainer"],[data-testid="stMain"], [data-testid="block-container"], section.main, .main {
     background-color: #F0F7FF !important;
     color: #333333 !important;
 }
@@ -35,30 +35,42 @@ html, body,[data-testid="stAppViewContainer"], [data-testid="stMain"],[data-test
     color: #ffffff !important;
 }
 
-/* Inputs do formulário */
+/* Labels dos inputs */
 label,[data-testid="stWidgetLabel"] p {
-    color: #333333 !important; font-weight: 600 !important; font-size: 0.95rem !important;
+    color: #333333 !important; 
+    font-weight: 600 !important; 
+    font-size: 0.95rem !important;
 }
-[data-testid="stSelectbox"] > div > div { background-color: #ffffff !important; border: 1.5px solid #0070B8 !important; border-radius: 6px !important; }
+
+/* ======== CORREÇÃO DOS SELECTBOX (Caixas de seleção) ======== */
+[data-testid="stSelectbox"] > div > div { 
+    background-color: #ffffff !important; 
+    border: 1.5px solid #0070B8 !important; 
+    border-radius: 6px !important; 
+}
+/* Força a cor do texto selecionado na caixa */
+[data-baseweb="select"] span {
+    color: #333333 !important;
+}
+/* Força a cor do texto na lista suspensa (dropdown) */
+div[data-baseweb="popover"] ul li {
+    color: #333333 !important;
+}
 
 /* ======== CORREÇÃO DAS ABAS (TABS) ======== */
 .stTabs[data-baseweb="tab-list"] { border-bottom: 3px solid #0070B8 !important; background-color: #F0F7FF !important; }
 .stTabs[data-baseweb="tab"] { background-color: transparent !important; }
-.stTabs [data-baseweb="tab"] p { color: #333333 !important; font-weight: 600 !important; font-size: 1.05rem !important; }
+.stTabs[data-baseweb="tab"] p { color: #333333 !important; font-weight: 600 !important; font-size: 1.05rem !important; }
 .stTabs [aria-selected="true"] { background-color: #ffffff !important; border-bottom: 3px solid #0070B8 !important; border-radius: 8px 8px 0 0; }
 .stTabs[aria-selected="true"] p { color: #0070B8 !important; }
 
 /* ======== CORREÇÃO DA SIDEBAR E MENU RADIO ======== */
-[data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #dee2e6; }
-[data-testid="stSidebar"] h2, [data-testid="stSidebar"] p, [data-testid="stSidebar"] span,[data-testid="stSidebar"] label { color: #333333 !important; }[data-testid="stRadio"] label p { color: #333333 !important; font-weight: 500 !important; }
+[data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #dee2e6; }[data-testid="stSidebar"] h2, [data-testid="stSidebar"] p,[data-testid="stSidebar"] span, [data-testid="stSidebar"] label { color: #333333 !important; }
+[data-testid="stRadio"] label p { color: #333333 !important; font-weight: 500 !important; }
 
-/* Métricas Nativas */
-[data-testid="metric-container"],[data-testid="stMetric"] { background-color: #ffffff !important; border-radius: 10px !important; padding: 16px !important; border: 1px solid #dee2e6 !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; }
-[data-testid="stMetricLabel"] *,[data-testid="metric-container"] label { color: #555555 !important; font-weight: 600 !important; }
-[data-testid="stMetricValue"] *,[data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }
+/* Métricas Nativas */[data-testid="metric-container"], [data-testid="stMetric"] { background-color: #ffffff !important; border-radius: 10px !important; padding: 16px !important; border: 1px solid #dee2e6 !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; }[data-testid="stMetricLabel"] *, [data-testid="metric-container"] label { color: #555555 !important; font-weight: 600 !important; }[data-testid="stMetricValue"] *, [data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }
 
-/* Botão principal */
-[data-testid="baseButton-primary"] { background-color: #0070B8 !important; color: white !important; font-weight: 700 !important; border-radius: 8px !important; border: none !important; }
+/* Botão principal */[data-testid="baseButton-primary"] { background-color: #0070B8 !important; color: white !important; font-weight: 700 !important; border-radius: 8px !important; border: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -79,8 +91,7 @@ st.sidebar.markdown(f"<h2 style='color:{CA_AZUL} !important; font-weight: 800;'>
 st.sidebar.markdown(f"<p style='color:{CA_CINZA}; font-size:0.95rem;'>Escolha o algoritmo abaixo para ver como o aplicativo e as métricas reagem em tempo real.</p>", unsafe_allow_html=True)
 
 modelo_selecionado = st.sidebar.radio(
-    "Modelo Ativo:",
-    ["Gradient Boosting 🏆", "Random Forest", "Regressão Logística"]
+    "Modelo Ativo:",["Gradient Boosting 🏆", "Random Forest", "Regressão Logística"]
 )
 
 # Mapeamento do modelo real baseado na seleção
@@ -170,7 +181,7 @@ with aba2:
     else:
         proba    = model_ativo.predict_proba(st.session_state["inp"])[0]
         top_idx  = np.argsort(-proba)[:3]
-        medalhas = ["🥇","🥈","🥉"]
+        medalhas =["🥇","🥈","🥉"]
         fundos   =[
             f"linear-gradient(135deg,{cor_tema} 0%,{CA_ESCURO} 100%)",
             f"linear-gradient(135deg,{CA_LARANJA} 0%,#E08B00 100%)",
@@ -314,7 +325,7 @@ with aba4:
 |---|---|
 | **Problema** | 9.493 empregados sem direcionamento claro entre 8 trilhas complexas de IA |
 | **Solução** | Construir um Sistema de Recomendação baseado em Machine Learning (Classificação Multiclasse) |
-| **Trade-offs Identificados** | A regressão logística subaproveita os dados. O Random Forest sobre com underfitting/tamanho de arquivo, sendo o Gradient Boosting o mais equilibrado em processamento vs. acurácia. |
+| **Trade-offs Identificados** | A regressão logística subaproveita os dados. O Random Forest sofre com underfitting/tamanho de arquivo, sendo o Gradient Boosting o mais equilibrado em processamento vs. acurácia. |
 
 ---
 
