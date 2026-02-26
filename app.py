@@ -68,15 +68,11 @@ thead tr th {
 tbody tr td { color: #333333 !important; padding: 8px !important; }
 tbody tr:nth-child(even) td { background-color: #E8F4FF !important; }
 [data-testid="metric-container"] {
-    background: white;
-    border-radius: 8px;
-    padding: 12px;
-    border: 1px solid #dee2e6;
+    background: white; border-radius: 8px; padding: 12px; border: 1px solid #dee2e6;
 }
 [data-testid="metric-container"] label { color: #555555 !important; }
 [data-testid="metric-container"] [data-testid="stMetricValue"] {
-    color: #003F8A !important;
-    font-weight: 900 !important;
+    color: #003F8A !important; font-weight: 900 !important;
 }
 hr { border-color: #0070B8 !important; opacity: 0.3; }
 [data-testid="baseButton-primary"] {
@@ -87,29 +83,20 @@ hr { border-color: #0070B8 !important; opacity: 0.3; }
     border: none !important;
 }
 [data-testid="baseButton-primary"]:hover { background-color: #003F8A !important; }
-
-/* ── Força branco em banners coloridos ── */
-div[style*="background:linear-gradient"] h1,
-div[style*="background:linear-gradient"] h2,
-div[style*="background:linear-gradient"] h3,
-div[style*="background:linear-gradient"] p,
-div[style*="background:linear-gradient"] span,
-div[style*="background:linear-gradient"] b {
-    color: white !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
+# HEADER
 st.markdown(f"""
 <div style="background: linear-gradient(135deg, {CA_AZUL} 0%, {CA_ESCURO} 100%);
             padding: 36px 40px; border-radius: 12px; margin-bottom: 28px;
             box-shadow: 0 6px 24px rgba(0,63,138,0.25);">
-  <h1 style="color:{CA_BRANCO}; margin:0; font-size:2.4rem; font-weight:900; letter-spacing:-0.5px;">
+  <h1 style="color:#ffffff; margin:0; font-size:2.4rem; font-weight:900; letter-spacing:-0.5px;">
     🏦 Recomendador de Trilhas de IA
   </h1>
   <p style="color:rgba(255,255,255,0.85); margin:8px 0 0 0; font-size:1.05rem;">
     Caixa Econômica Federal &nbsp;|&nbsp; Sistema Inteligente de Recomendação &nbsp;|&nbsp;
-    <span style="background:{CA_LARANJA}; color:white; padding:2px 10px; border-radius:12px; font-size:0.85rem; font-weight:700;">ML • Stacking Classifier</span>
+    <span style="background:{CA_LARANJA}; color:#ffffff; padding:2px 10px; border-radius:12px; font-size:0.85rem; font-weight:700;">ML • Stacking Classifier</span>
   </p>
 </div>
 """, unsafe_allow_html=True)
@@ -123,7 +110,7 @@ classes = model.named_steps["model"].classes_
 
 aba1, aba2, aba3, aba4 = st.tabs(["📋 Perfil", "🎯 Recomendação Premium", "📊 Modelo & Métricas", "🎓 Para o Professor"])
 
-# ══ ABA 1 ══════════════════════════════════════════════════════════════════════
+# ══ ABA 1 ══
 with aba1:
     st.markdown(f"<h2 style='color:{CA_AZUL}; margin-bottom:4px;'>📋 Perfil do Empregado</h2>", unsafe_allow_html=True)
     st.markdown(f"<p style='color:{CA_CINZA}; margin-top:0; margin-bottom:20px;'>Preencha os dados abaixo para receber recomendações personalizadas.</p>", unsafe_allow_html=True)
@@ -147,7 +134,7 @@ with aba1:
         st.session_state["inp"] = pd.DataFrame([{"area":area,"funcao":funcao,"tempo_de_casa":tempo_de_casa,"ja_utilizou_ia":ja_utilizou_ia,"atividade_principal":atividade_principal,"objetivo_ia_6m":objetivo_ia_6m,"impacto_erro_ia":impacto_erro_ia,"forma_uso_ia":forma_uso_ia,"nivel_programacao":nivel_programacao}])
         st.success("✅ Perfil salvo! Vá para a aba **🎯 Recomendação Premium**.")
 
-# ══ ABA 2 ══════════════════════════════════════════════════════════════════════
+# ══ ABA 2 ══
 with aba2:
     st.markdown(f"<h2 style='color:{CA_AZUL};'>🎯 Trilhas Recomendadas para o seu Perfil</h2>", unsafe_allow_html=True)
     if "inp" not in st.session_state:
@@ -166,18 +153,18 @@ with aba2:
         for i, idx in enumerate(top_idx):
             curso, conf = classes[idx], proba[idx]*100
             st.markdown(f"""
-<div style="background:{bg_cards[i]};color:white;padding:28px 32px;border-radius:14px;
+<div style="background:{bg_cards[i]};padding:28px 32px;border-radius:14px;
             margin-bottom:14px;box-shadow:0 8px 24px rgba(0,63,138,0.18);
             border-left:6px solid {borda[i]};">
   <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;">
-    <h3 style="margin:0;font-size:1.35rem;color:white;font-weight:800;">{medalhas[i]} {curso}</h3>
-    <span style="background:rgba(255,255,255,0.2);color:white;padding:4px 14px;border-radius:20px;
+    <h3 style="margin:0;font-size:1.35rem;color:#ffffff;font-weight:800;">{medalhas[i]} {curso}</h3>
+    <span style="background:rgba(255,255,255,0.2);color:#ffffff;padding:4px 14px;border-radius:20px;
                  font-size:1rem;font-weight:700;">{conf:.1f}%</span>
   </div>
   <div style="background:rgba(255,255,255,0.15);border-radius:8px;height:10px;overflow:hidden;">
     <div style="background:rgba(255,255,255,0.9);height:100%;width:{conf:.0f}%;border-radius:8px;"></div>
   </div>
-  <p style="margin:10px 0 0 0;color:rgba(255,255,255,0.75);font-size:0.85rem;">
+  <p style="margin:10px 0 0 0;color:rgba(255,255,255,0.8);font-size:0.85rem;">
     Confiança do modelo para este perfil
   </p>
 </div>""", unsafe_allow_html=True)
@@ -212,15 +199,15 @@ with aba2:
   <p style="margin:0;color:{CA_AZUL};font-size:0.8rem;font-style:italic;">9 features analisadas pelo modelo</p>
 </div>""", unsafe_allow_html=True)
 
-# ══ ABA 3 ══════════════════════════════════════════════════════════════════════
+# ══ ABA 3 ══
 with aba3:
     st.markdown(f"<h2 style='color:{CA_AZUL};'>📊 Modelo & Métricas</h2>", unsafe_allow_html=True)
     m1, m2, m3, m4 = st.columns(4)
     kpis = [
-        (m1, "92,8%", "Accuracy", CA_AZUL, CA_ESCURO),
-        (m2, "92,4%", "Macro F1", CA_LARANJA, "#E08B00"),
-        (m3, "99,0%", "Top-3 Accuracy", CA_VERDE, "#007A40"),
-        (m4, "9.493", "Empregados", "#7B2D8B", "#4A1A55"),
+        (m1, "92,8%", "Accuracy",      CA_AZUL,    CA_ESCURO),
+        (m2, "92,4%", "Macro F1",      CA_LARANJA, "#E08B00"),
+        (m3, "99,0%", "Top-3 Accuracy",CA_VERDE,   "#007A40"),
+        (m4, "9.493", "Empregados",    "#7B2D8B",  "#4A1A55"),
     ]
     for col_, val_, lbl_, c1_, c2_ in kpis:
         with col_:
@@ -228,8 +215,8 @@ with aba3:
 <div style="background:linear-gradient(135deg, {c1_} 0%, {c2_} 100%);
             padding:22px;border-radius:12px;text-align:center;
             box-shadow:0 4px 16px rgba(0,0,0,0.12);margin-bottom:8px;">
-  <h1 style="margin:0;font-size:2.2rem;color:white;font-weight:900;">{val_}</h1>
-  <p style="margin:8px 0 0 0;font-size:0.9rem;color:rgba(255,255,255,0.85);font-weight:600;">{lbl_}</p>
+  <h1 style="margin:0;font-size:2.2rem;color:#ffffff;font-weight:900;">{val_}</h1>
+  <p style="margin:8px 0 0 0;font-size:0.9rem;color:#ffffff;font-weight:600;opacity:0.9;">{lbl_}</p>
 </div>""", unsafe_allow_html=True)
 
     st.divider()
@@ -256,10 +243,10 @@ with aba3:
         fig2.patch.set_facecolor("#F0F7FF"); ax2.set_facecolor("#F0F7FF")
         ax2.set_xlim(0, 10); ax2.set_ylim(0, 10); ax2.axis("off")
         bxs = [
-            (0.2, 7.2, 3.5, 1.3, CA_AZUL,    "Gradient Boosting"),
-            (0.2, 4.7, 3.5, 1.3, CA_LARANJA,  "Random Forest"),
-            (0.2, 2.2, 3.5, 1.3, "#666666",   "Logistic Regression"),
-            (5.3, 3.8, 4.2, 2.0, CA_ESCURO,   "Meta\nLogistic\nRegression"),
+            (0.2, 7.2, 3.5, 1.3, CA_AZUL,   "Gradient Boosting"),
+            (0.2, 4.7, 3.5, 1.3, CA_LARANJA, "Random Forest"),
+            (0.2, 2.2, 3.5, 1.3, "#666666",  "Logistic Regression"),
+            (5.3, 3.8, 4.2, 2.0, CA_ESCURO,  "Meta\nLogistic\nRegression"),
         ]
         for x, y, w, h, cor, lbl in bxs:
             ax2.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.15", facecolor=cor, edgecolor="white", linewidth=2.5))
@@ -273,9 +260,9 @@ with aba3:
     st.divider()
     st.markdown(f"<h3 style='color:{CA_ESCURO};'>📂 Dataset</h3>", unsafe_allow_html=True)
     d1, d2, d3, d4 = st.columns(4)
-    d1.metric("👥 Empregados", "9.493"); d2.metric("📊 Features", "9"); d3.metric("🎓 Cursos", "8"); d4.metric("✅ Completude", "100%")
+    d1.metric("👥 Empregados","9.493"); d2.metric("📊 Features","9"); d3.metric("🎓 Cursos","8"); d4.metric("✅ Completude","100%")
     cursos_l = ["Fundamentos IA","IA Explicável","Automação","IA Negócios","Prompting","Agentes IA","RAG","ML Negócio"]
-    qtds_l   = [2375, 1768, 1231, 1129, 904, 871, 774, 441]
+    qtds_l   = [2375,1768,1231,1129,904,871,774,441]
     fig3, ax3 = plt.subplots(figsize=(10, 3.8))
     fig3.patch.set_facecolor("#F0F7FF"); ax3.set_facecolor("#ffffff")
     ax3.bar(range(len(cursos_l)), qtds_l, color=CA_AZUL, alpha=0.85, edgecolor=CA_ESCURO, linewidth=1.5, width=0.6)
@@ -305,17 +292,17 @@ with aba3:
   <p style="color:{CA_CINZA};margin:4px 0;"><b>💾 Modelo:</b> joblib compress=3 (&lt;10 MB)</p>
 </div>""", unsafe_allow_html=True)
 
-# ══ ABA 4 ══════════════════════════════════════════════════════════════════════
+# ══ ABA 4 ══
 with aba4:
     st.markdown(f"<h2 style='color:{CA_AZUL};'>🎓 Documentação para Apresentação</h2>", unsafe_allow_html=True)
     st.markdown(f"""
 <div style="background:linear-gradient(135deg, {CA_AZUL} 0%, {CA_ESCURO} 100%);padding:28px 32px;border-radius:14px;margin-bottom:24px;">
-  <h3 style="margin:0 0 10px 0;color:white;font-size:1.4rem;">📚 Resumo Executivo</h3>
-  <p style="margin:0;font-size:1rem;color:rgba(255,255,255,0.9);line-height:1.6;">
+  <h3 style="margin:0 0 10px 0;color:#ffffff;font-size:1.4rem;">📚 Resumo Executivo</h3>
+  <p style="margin:0;font-size:1rem;color:#ffffff;line-height:1.6;opacity:0.95;">
     Sistema inteligente de recomendação de trilhas de Inteligência Artificial
-    para os empregados da <b>Caixa Econômica Federal</b>, desenvolvido com
-    <b>Machine Learning supervisionado</b>. O modelo atinge <b>92,8% de acurácia</b>
-    e garante que o curso ideal esteja entre os 3 recomendados em <b>99% dos casos</b>.
+    para os empregados da <b style="color:#ffffff;">Caixa Econômica Federal</b>, desenvolvido com
+    <b style="color:#ffffff;">Machine Learning supervisionado</b>. O modelo atinge <b style="color:#ffffff;">92,8% de acurácia</b>
+    e garante que o curso ideal esteja entre os 3 recomendados em <b style="color:#ffffff;">99% dos casos</b>.
   </p>
 </div>
 """, unsafe_allow_html=True)
