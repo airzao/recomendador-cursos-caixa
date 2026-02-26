@@ -410,85 +410,148 @@ with aba3:
 # ABA 4 — DETALHES DO PROJETO
 # ══════════════════════════════════════════════════════════════════════
 with aba4:
-    st.markdown(f"<h2 style='color:{CA_AZUL};'>📄 Documentação do Projeto</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color:{CA_AZUL};'>🎓 Detalhes do Projeto</h2>", unsafe_allow_html=True)
 
-    # Banner de Resumo (Dinâmico)
+    # ================================
+    # BANNER RESUMO EXECUTIVO
+    # ================================
     st.markdown(f"""
 <div class="banner-white" 
      style="background:linear-gradient(135deg,{cor_tema} 0%,{CA_ESCURO} 100%);
-            padding:28px 32px;border-radius:14px;margin-bottom:24px;">
-  <h3 style="margin:0 0 12px 0;font-size:1.4rem;">📚 Resumo Executivo</h3>
-  <p style="margin:0;font-size:1rem;line-height:1.7;">
+            padding:30px 34px;border-radius:14px;margin-bottom:28px;
+            box-shadow:0 8px 24px rgba(0,0,0,0.18);">
+  <h3 style="margin:0 0 14px 0;font-size:1.5rem;font-weight:800;">
+    📚 Resumo Executivo
+  </h3>
+  <p style="margin:0;font-size:1.05rem;line-height:1.8;">
     Sistema inteligente de recomendação de trilhas de Inteligência Artificial
-    para os empregados da
-    <span style="font-weight:700;text-decoration:underline;">Caixa Econômica Federal</span>.
-    A prova de conceito (PoC) compara três algoritmos: Regressão Logística, Random Forest e Gradient Boosting.
-    O vencedor escolhido para produção foi o <span style="font-weight:700;">Gradient Boosting Classifier</span> 
-    que atingiu <span style="font-weight:700;">93,4% de acurácia</span> 
-    e garante que o curso ideal esteja entre os 3 recomendados em 
-    <span style="font-weight:700;">97,7% dos casos</span>.
+    para os empregados da <b>Caixa Econômica Federal</b>.
+    A Prova de Conceito (PoC) avaliou três algoritmos supervisionados:
+    <b>Regressão Logística</b>, <b>Random Forest</b> e <b>Gradient Boosting</b>.
+    <br><br>
+    O modelo vencedor foi o <b>Gradient Boosting Classifier</b>,
+    atingindo <b>93,4% de acurácia</b> e garantindo que o curso ideal
+    esteja entre os três recomendados em <b>97,7% dos casos</b>.
   </p>
 </div>
 """, unsafe_allow_html=True)
 
-    # Tabela de Negócios e Problema
+    # ================================
+    # TABELA ESTRUTURAL DO PROJETO
+    # ================================
     st.markdown("""
-### 🎯 Contexto e Valor de Negócio
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th style="width:20%;">Aspecto</th>
+      <th>Detalhamento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Problema</b></td>
+      <td>
+      Diferentes áreas da organização possuem necessidades distintas de aplicação de IA 
+      (automação, agentes, RAG, análise preditiva, compliance etc.). 
+      A ausência de direcionamento estruturado gera:
+      <br><br>
+      • Baixa aplicação prática após os cursos;<br>
+      • Desalinhamento entre treinamento e necessidade real;<br>
+      • Risco operacional em áreas críticas (Riscos, Compliance, Jurídico).
+      </td>
+    </tr>
+    <tr>
+      <td><b>Objetivo</b></td>
+      <td>
+      Criar um sistema inteligente de recomendação que direcione o empregado 
+      à trilha de capacitação em IA mais aderente ao seu perfil funcional.
+      </td>
+    </tr>
+    <tr>
+      <td><b>Solução</b></td>
+      <td>
+      Desenvolvimento de modelo supervisionado de <i>Machine Learning</i>
+      baseado em um assessment estruturado com 9 features comportamentais e funcionais.
+      </td>
+    </tr>
+    <tr>
+      <td><b>ROI Esperado</b></td>
+      <td>
+      • Redução de desperdício em capacitação;<br>
+      • Aumento da taxa de aplicação prática pós-treinamento;<br>
+      • Maior maturidade no uso corporativo de IA.
+      </td>
+    </tr>
+    <tr>
+      <td><b>Critério de Sucesso</b></td>
+      <td>
+      ≥ 80% de aderência percebida pelos usuários e ≥ 70% de taxa de conclusão.
+      </td>
+    </tr>
+  </tbody>
+</table>
+""", unsafe_allow_html=True)
 
-| Aspecto | Detalhe |
-| :--- | :--- |
-| **Problema** | Atualmente, na CAIXA, diferentes perfis (ex.: operações, atendimento, riscos, compliance, TI, dados) possuem demandas e usos distintos de IA como automação, agentes, RAG, machine learning, explicabilidade, etc. No entanto, como o tema é novo, os usuários precisam de auxílio para encontrar o treinamento que mais se aproxima de suas necessidades reais. Isso leva a:<br><br>• Baixa aplicação prática após o curso;<br>• Desperdício de investimento em treinamento;<br>• Risco de uso inadequado de IA em contextos críticos (ex.: risco/compliance/jurídico). |
-| **Objetivo** | Acelerar a adoção de inteligência artificial de forma segura e alinhada às necessidades reais das áreas. |
-| **Solução** | Será desenvolvido um modelo de *machine learning* para recomendação de curso/trilha de IA com base em um *assessment* que considera informações reais dos funcionários (perfil funcional, tipo de atividade, objetivo com IA, impacto do erro, forma de uso e nível de programação). |
-| **ROI** | O ROI esperado do projeto está na redução de custos e do tempo despendido com treinamentos em IA pouco aderentes, aliada ao aumento da efetividade do uso de IA na Caixa. |
-| **Stakeholders** | Áreas de negócio usuárias de IA (operações, atendimento, riscos, compliance, TI e dados), além das áreas de RH/L&D, governança de IA e liderança, responsáveis pela capacitação. |
-| **Critério de sucesso** | O projeto será considerado bem-sucedido quando o modelo recomendar cursos ou trilhas de IA com, no mínimo, 80% de aderência percebida pelos usuários no pós-treinamento, e com taxa de conclusão de no mínimo 70%. |
+    st.markdown("---")
 
----
+    # ================================
+    # DATASET
+    # ================================
+    st.markdown(f"<h3 style='color:{CA_ESCURO};'>📂 Dataset de Treinamento</h3>", unsafe_allow_html=True)
+    st.markdown("""
+O dataset foi construído a partir de benchmarks derivados de um assessment interno.
+Após consolidação inicial, aplicou-se geração de dados sintéticos via LLM
+para ampliação da base, garantindo maior robustez estatística e representatividade.
+    """)
 
-### 📂 Base de Dados e Variáveis
+    # ================================
+    # QUALIDADE
+    # ================================
+    st.markdown(f"<h3 style='color:{CA_ESCURO};'>🛡️ Garantia de Qualidade</h3>", unsafe_allow_html=True)
+    st.markdown("""
+Foi desenvolvido notebook específico de validação garantindo:
+• Integridade estrutural das variáveis  
+• Remoção de duplicidades  
+• Aderência aos domínios permitidos  
+• Consistência entre campos relacionados  
+    """)
 
-**Dataset de treinamento**  
-O dataset de treinamento foi construído a partir de benchmarks derivados de um *assessment* previamente realizado com o objetivo de identificar as principais dores e desafios enfrentados pelos colaboradores. Os dados coletados nesse diagnóstico foram tratados e analisados para mapear lacunas de competências e necessidades de treinamento. A partir desse conjunto inicial, aplicou-se a técnica de geração de dados sintéticos (*data augmentation*) baseada em *Large Language Models* (LLMs), permitindo a criação de novas linhas sintéticas coerentes com os padrões observados, ampliando a representatividade do dataset e fortalecendo a robustez do processo de treinamento.
+    # ================================
+    # METODOLOGIA
+    # ================================
+    st.markdown(f"<h3 style='color:{CA_ESCURO};'>⚙️ Metodologia (CRISP-DM)</h3>", unsafe_allow_html=True)
+    st.markdown("""
+1. **Business Understanding**  
+2. **Data Understanding**  
+3. **Data Preparation**  
+4. **Modeling**  
+5. **Evaluation**  
+6. **Deployment**
 
-**Qualidade do Dataset**  
-Foi desenvolvido um notebook de validação e tratamento de qualidade do dataset com o objetivo de assegurar a integridade dos dados utilizados no treinamento. Esse notebook busca garantir que, mesmo após a geração de dados sintéticos, todas as linhas permaneçam aderentes às regras e restrições do modelo (ex.: formatos, domínios permitidos e coerência entre campos), além de identificar e remover registros duplicados e potenciais inconsistências que possam comprometer a performance e a confiabilidade do modelo.
+Modelagem realizada com:
+- Regressão Logística  
+- Random Forest  
+- Gradient Boosting  
+Validação com Cross-Validation (5-Folds).
+    """)
 
-**As 9 Features do Modelo**
-| # | Feature | Tipo | Processamento no Pipeline |
-|---|---------|------|---------------------------|
-| 1 | Área de atuação | Categórica | `OneHotEncoder` |
-| 2 | Função/Cargo | Categórica | `OneHotEncoder` |
-| 3 | Tempo de casa | Numérica | `StandardScaler` |
-| 4 | Já utilizou IA | Binária | `OneHotEncoder` |
-| 5 | Atividade principal | Categórica | `OneHotEncoder` |
-| 6 | Objetivo 6 meses | Categórica | `OneHotEncoder` |
-| 7 | Impacto do erro | Categórica | `OneHotEncoder` |
-| 8 | Forma de uso de IA | Categórica | `OneHotEncoder` |
-| 9 | Nível de programação | Categórica | `OneHotEncoder` |
+    st.markdown("---")
 
----
+    # ================================
+    # FEATURES
+    # ================================
+    st.markdown(f"<h3 style='color:{CA_ESCURO};'>🧬 As 9 Features do Modelo</h3>", unsafe_allow_html=True)
 
-### ⚙️ Metodologia de Projeto (CRISP-DM)
-
-O projeto foi desenvolvido seguindo a metodologia **CRISP-DM**, com fases bem definidas e encadeadas, estruturada nas seguintes etapas:
-
-1. **Entendimento do Negócio (Business Understanding)**  
-Definição dos objetivos do projeto, escopo, premissas, restrições, critérios de sucesso e entendimento do contexto organizacional e do problema a ser resolvido.
-2. **Entendimento dos Dados (Data Understanding)**  
-Coleta inicial dos dados, análise exploratória preliminar, identificação da qualidade dos dados, padrões, inconsistências e principais achados do assessment.
-3. **Preparação dos Dados (Data Preparation)**  
-Limpeza, tratamento, transformação e estruturação dos dados, incluindo:
-   * Tratamento de valores ausentes e outliers (`SimpleImputer`).
-   * Padronização e enriquecimento das variáveis.
-   * Geração de dados sintéticos, quando aplicável.
-   * Balanceamento das classes (`class_weight='balanced'`).
-4. **Modelagem (Modeling)**  
-Seleção de técnicas e algoritmos adequados (Regressão Logística, Random Forest e Gradient Boosting), construção dos modelos analíticos e ajuste de parâmetros (`RandomizedSearchCV`), com base nos objetivos definidos na etapa de negócio.
-5. **Avaliação (Evaluation)**  
-Validação dos modelos desenvolvidos (Cross-Validation 5-Folds), análise de desempenho frente aos critérios de sucesso estabelecidos (F1-Score Macro e Top-3 Accuracy) e verificação da aderência às necessidades do negócio.
-6. **Implantação / Entrega (Deployment)**  
-Consolidação dos resultados, organização dos artefatos finais e disponibilização das entregas do projeto (Aplicativo Streamlit em Nuvem).
-
-Como resultado da primeira etapa (Entendimento do Negócio e dos Dados), foi elaborado um documento formal em formato PDF, consolidando os objetivos, escopo, premissas, critérios de sucesso e principais achados do assessment. As etapas técnicas foram documentadas por meio de notebooks em Python (exploração dos dados, tratamento, geração de dados sintéticos, modelagem e validação) garantindo transparência, reprodutibilidade e controle técnico do desenvolvimento do projeto.
+    st.markdown("""
+| # | Feature | Tipo | Pipeline |
+|---|---------|------|----------|
+|1|Área|Categórica|OneHotEncoder|
+|2|Função|Categórica|OneHotEncoder|
+|3|Tempo de Casa|Numérica|StandardScaler|
+|4|Já utilizou IA|Binária|OneHotEncoder|
+|5|Atividade Principal|Categórica|OneHotEncoder|
+|6|Objetivo 6 meses|Categórica|OneHotEncoder|
+|7|Impacto do erro|Categórica|OneHotEncoder|
+|8|Forma de uso|Categórica|OneHotEncoder|
+|9|Nível programação|Categórica|OneHotEncoder|
     """)
