@@ -140,7 +140,7 @@ st.sidebar.markdown(f"<h2 style='color:{CA_AZUL} !important; font-weight: 800;'>
 st.sidebar.markdown(f"<p style='color:{CA_CINZA}; font-size:0.95rem;'>Escolha o algoritmo abaixo para ver como o aplicativo e as métricas reagem em tempo real.</p>", unsafe_allow_html=True)
 
 modelo_selecionado = st.sidebar.radio(
-    "Modelo Ativo:",["Gradient Boosting", "Random Forest", "Regressão Logística"]
+    "Modelo Ativo:",["Gradient Boosting 🏆", "Random Forest", "Regressão Logística"]
 )
 
 # Mapeamento do modelo real baseado na seleção
