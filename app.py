@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # Configuração da página
 st.set_page_config(
-    page_title="Plataforma de Direcionamento Estratégico", 
+    page_title="Recomendador de Cursos — CAIXA", 
     page_icon="🏦", 
     layout="wide", 
     initial_sidebar_state="expanded"
@@ -22,69 +22,98 @@ CA_CLARO   = "#F0F7FF"
 CA_BRANCO  = "#FFFFFF"
 
 # ═══════════════════════════════════════════
-# CSS GLOBAL BLINDADO (CONTRA DARK MODE) + ESTILO DE TABELA
+# CSS PROFISSIONAL & BLINDAGEM DARK MODE
 # ═══════════════════════════════════════════
 st.markdown("""
 <style>
-/* Fundo e textos gerais */
-html, body, [data-testid="stAppViewContainer"],[data-testid="stMain"], [data-testid="block-container"], section.main, .main {
+/* Reset Global */
+html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], [data-testid="block-container"] {
     background-color: #F0F7FF !important;
-    color: #333333 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Forçar texto branco apenas DENTRO dos banners coloridos */
-.banner-white, .banner-white h1, .banner-white h2, .banner-white h3, .banner-white h4, .banner-white p, .banner-white span, .banner-white b, .banner-white strong {
-    color: #ffffff !important;
-}
+/* Tipografia */
+h1, h2, h3 { color: #003F8A !important; }
+p, label, span, div { color: #333333 !important; }
 
-/* Labels dos inputs */
-label, [data-testid="stWidgetLabel"] p {
-    color: #333333 !important; 
-    font-weight: 600 !important; 
+/* Banners Específicos (Texto Branco) */
+.banner-white, .banner-white * { color: #ffffff !important; }
+
+/* Inputs e Widgets */
+[data-testid="stWidgetLabel"] p {
+    color: #003F8A !important;
+    font-weight: 700 !important;
     font-size: 0.95rem !important;
 }
 
-/* ======== CORREÇÃO DOS SELECTBOX ======== */
-[data-testid="stSelectbox"] > div > div { 
-    background-color: #ffffff !important; 
-    border: 1.5px solid #0070B8 !important; 
-    border-radius: 6px !important; 
+/* Selectbox e Dropdowns */
+[data-testid="stSelectbox"] > div > div {
+    background-color: #ffffff !important;
+    border: 1px solid #0070B8 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 [data-baseweb="select"] * { color: #333333 !important; }
-div[data-baseweb="popover"], div[data-baseweb="popover"] div, div[data-baseweb="popover"] ul { background-color: #ffffff !important; }
-div[data-baseweb="popover"] ul li { color: #333333 !important; background-color: #ffffff !important; }
+div[data-baseweb="popover"] ul { background-color: #ffffff !important; }
+div[data-baseweb="popover"] ul li { color: #333333 !important; }
 div[data-baseweb="popover"] ul li:hover { background-color: #E8F4FF !important; color: #0070B8 !important; }
 
-/* ======== CORREÇÃO DAS ABAS ======== */
-.stTabs[data-baseweb="tab-list"] { border-bottom: 3px solid #0070B8 !important; background-color: #F0F7FF !important; }
-.stTabs[data-baseweb="tab"] { background-color: transparent !important; }
-.stTabs [data-baseweb="tab"] p { color: #888888 !important; font-weight: 600 !important; font-size: 1.05rem !important; }
-.stTabs [aria-selected="true"] { background-color: #ffffff !important; border-bottom: 3px solid #0070B8 !important; border-radius: 8px 8px 0 0; }
+/* Sliders */
+div[data-baseweb="slider"] { margin-top: 15px; }
+
+/* Tabs (Abas) */
+.stTabs [data-baseweb="tab-list"] { 
+    border-bottom: 2px solid #0070B8 !important; 
+    gap: 10px;
+}
+.stTabs [data-baseweb="tab"] {
+    background-color: transparent !important;
+    border: none !important;
+}
+.stTabs [data-baseweb="tab"] p { 
+    color: #666666 !important; 
+    font-weight: 600 !important;
+}
+.stTabs [aria-selected="true"] { 
+    background-color: #ffffff !important; 
+    border-radius: 8px 8px 0 0;
+    border: 1px solid #0070B8 !important;
+    border-bottom: none !important;
+}
 .stTabs [aria-selected="true"] p { color: #0070B8 !important; }
 
-/* ======== CORREÇÃO DA SIDEBAR E RADIO ======== */
-[data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #dee2e6; }
-[data-testid="stSidebar"] h2, [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label { color: #333333 !important; }
-[data-testid="stRadio"] label p { color: #333333 !important; font-weight: 500 !important; }
+/* Sidebar */
+[data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #e0e0e0; }
 
-/* ======== MÉTRICAS E BOTÕES ======== */
-[data-testid="metric-container"] { background-color: #ffffff !important; border-radius: 10px !important; padding: 16px !important; border: 1px solid #dee2e6 !important; }
-[data-testid="stMetricLabel"] *, [data-testid="metric-container"] label { color: #555555 !important; font-weight: 600 !important; }
-[data-testid="stMetricValue"] *, [data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }
-[data-testid="baseButton-primary"] { background-color: #0070B8 !important; color: white !important; font-weight: 700 !important; border-radius: 8px !important; border: none !important; }
+/* Botão de Ação (CTA) */
+[data-testid="baseButton-primary"] { 
+    background: linear-gradient(90deg, #0070B8 0%, #003F8A 100%) !important;
+    color: white !important; 
+    font-weight: 700 !important; 
+    border-radius: 8px !important; 
+    border: none !important;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 12px rgba(0, 63, 138, 0.3);
+    transition: all 0.3s ease;
+}
+[data-testid="baseButton-primary"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 63, 138, 0.4);
+}
 
-/* ======== TABELA HTML CUSTOMIZADA ======== */
-.custom-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; font-family: sans-serif; box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); }
-.custom-table thead tr { background-color: #0070B8; color: #ffffff; text-align: left; }
-.custom-table th, .custom-table td { padding: 12px 15px; border: 1px solid #dddddd; color: #333333; vertical-align: top; }
-.custom-table tbody tr { border-bottom: 1px solid #dddddd; }
-.custom-table tbody tr:nth-of-type(even) { background-color: #f3f3f3; }
-.custom-table tbody tr:last-of-type { border-bottom: 2px solid #0070B8; }
+/* Métricas */
+[data-testid="metric-container"] {
+    background-color: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    border: 1px solid #e0e0e0 !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02) !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
 # ═══════════════════════════════════════════
-# LOAD DOS 3 MODELOS
+# CARREGAMENTO DO MODELO
 # ═══════════════════════════════════════════
 @st.cache_resource
 def load_models():
@@ -93,15 +122,17 @@ def load_models():
 modelos_dict = load_models()
 
 # ═══════════════════════════════════════════
-# SIDEBAR - SIMULADOR DINÂMICO
+# SIDEBAR
 # ═══════════════════════════════════════════
-st.sidebar.markdown(f"<h2 style='color:{CA_AZUL} !important; font-weight: 800;'>🛠️ Simulador de Modelos</h2>", unsafe_allow_html=True)
-st.sidebar.markdown(f"<p style='color:{CA_CINZA}; font-size:0.95rem;'>Escolha o algoritmo abaixo para ver como o aplicativo e as métricas reagem em tempo real.</p>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<h3 style='color:{CA_ESCURO} !important;'>⚙️ Painel de Controle</h3>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<p style='color:{CA_CINZA}; font-size:0.9rem;'>Selecione o motor de IA para simular diferentes comportamentos.</p>", unsafe_allow_html=True)
 
 modelo_selecionado = st.sidebar.radio(
-    "Modelo Ativo:",["Gradient Boosting", "Random Forest", "Regressão Logística"]
+    "Algoritmo Ativo:",
+    ["Gradient Boosting", "Random Forest", "Regressão Logística"]
 )
 
+# Lógica de Seleção do Modelo
 if "Gradient Boosting" in modelo_selecionado:
     model_ativo = modelos_dict["GB"]
     nome_tecnico = "Gradient Boosting"
@@ -118,13 +149,13 @@ else:
 classes = model_ativo.named_steps["model"].classes_
 
 kpis_dinamicos = {
-    "Gradient Boosting": {"acc": "93,4%", "f1": "92,9%", "top3": "97,7%", "desc": "Melhor performance geral. Captura relações complexas nos dados e corrige vieses sequencialmente."},
-    "Random Forest":        {"acc": "91,7%", "f1": "91,3%", "top3": "96,5%", "desc": "Modelo robusto baseado em múltiplas árvores, mas que apresentou leve queda na métrica Macro F1."},
-    "Regressão Logística":  {"acc": "88,5%", "f1": "87,4%", "top3": "94,2%", "desc": "Modelo baseline simples. Funciona bem como base, mas sofre para entender perfis mais complexos."}
+    "Gradient Boosting": {"acc": "93,4%", "f1": "92,9%", "top3": "97,7%", "desc": "Alta performance. Detecta padrões complexos não-lineares."},
+    "Random Forest":     {"acc": "91,7%", "f1": "91,3%", "top3": "96,5%", "desc": "Modelo robusto, baseado em múltiplas árvores de decisão."},
+    "Regressão Logística":{"acc": "88,5%", "f1": "87,4%", "top3": "94,2%", "desc": "Modelo linear base (baseline), com menor capacidade de generalização."}
 }
 
 # ═══════════════════════════════════════════
-# MAPEAMENTOS
+# MAPEAMENTOS (Interface -> Modelo)
 # ═══════════════════════════════════════════
 map_atividade = {
     "Análise para apoio à decisão (indicadores, desempenho, relatórios analíticos)": "Analise para apoio a decisao indicadores desempenho relatorios analiticos",
@@ -175,140 +206,172 @@ map_nivel = {
 }
 
 # ═══════════════════════════════════════════
-# HEADER UI
+# HEADER
 # ═══════════════════════════════════════════
 st.markdown(f"""
 <div class="banner-white" 
      style="background:linear-gradient(135deg,{cor_tema} 0%,{CA_ESCURO} 100%);
-            padding:36px 40px;border-radius:12px;margin-bottom:28px;
-            box-shadow:0 6px 24px rgba(0,0,0,0.25);">
-  <h1 style="margin:0;font-size:2.4rem;font-weight:900;letter-spacing:-0.5px;">
-    Plataforma de Direcionamento Estratégico de Capacitação
+            padding:32px 40px;border-radius:12px;margin-bottom:24px;
+            box-shadow:0 8px 32px rgba(0,63,138,0.2);">
+  <h1 style="margin:0;font-size:2.2rem;font-weight:800;letter-spacing:-0.5px;">
+    🏦 Recomendador de Trilhas de IA
   </h1>
-  <p style="margin:8px 0 0 0;font-size:1.05rem;opacity:0.9;">
-    Caixa Econômica Federal &nbsp;|&nbsp; Sistema Inteligente de Recomendação &nbsp;|&nbsp;
-    <span style="background:{CA_LARANJA};padding:2px 10px;border-radius:12px;font-size:0.85rem;font-weight:700;">{nome_tecnico}</span>
-  </p>
+  <div style="display:flex;align-items:center;gap:12px;margin-top:12px;">
+     <span style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:0.85rem;font-weight:600;">Caixa Econômica Federal</span>
+     <span style="background:{CA_LARANJA};padding:4px 12px;border-radius:20px;font-size:0.85rem;font-weight:700;color:white;">Modelo: {nome_tecnico}</span>
+  </div>
 </div>
 """, unsafe_allow_html=True)
 
-aba1, aba2, aba3, aba4 = st.tabs(["📋 Perfil", "🎯 Recomendação Premium", "📊 Modelo & Métricas", "🎓 Detalhes do projeto"])
+aba1, aba2, aba3, aba4 = st.tabs(["📋 Perfil & Assessment", "🎯 Recomendação", "📊 Métricas do Modelo", "🎓 Detalhes do Projeto"])
 
 # ══════════════════════════════════════════════════════════════════════
 # ABA 1 — PERFIL
 # ══════════════════════════════════════════════════════════════════════
 with aba1:
-    st.markdown(f"<h2 style='color:{CA_AZUL};margin-bottom:4px;'>📋 Perfil do Empregado</h2>", unsafe_allow_html=True)
-    st.markdown(f"<p style='color:{CA_CINZA};margin-top:0;margin-bottom:20px;'>Preencha os dados abaixo para receber recomendações personalizadas.</p>", unsafe_allow_html=True)
-
-    col1, col2, col3 = st.columns([1, 1, 1])
+    st.markdown(f"<h3 style='color:{CA_ESCURO}; border-bottom:2px solid {CA_AZUL}; padding-bottom:8px; margin-bottom:20px;'>1. Dados Funcionais</h3>", unsafe_allow_html=True)
+    
+    # CORREÇÃO DO ERRO AQUI: Garantindo 3 colunas para 3 variáveis
+    col1, col2, col3 = st.columns(3)
+    
     with col1:
-        area = st.selectbox("🏢 Área de atuação",["Agencia Varejo","Atendimento","Controladoria","Credito","Financeiro","Juridico","Operacoes","Prevencao a Fraudes","Riscos","TI","Dados e Analytics","PMO","RH","Produtos","Auditoria Interna","Compliance","Seguranca da Informacao"])
+        area = st.selectbox("🏢 Área de atuação", ["Agencia Varejo","Atendimento","Controladoria","Credito","Financeiro","Juridico","Operacoes","Prevencao a Fraudes","Riscos","TI","Dados e Analytics","PMO","RH","Produtos","Auditoria Interna","Compliance","Seguranca da Informacao"])
     with col2:
-        funcao = st.selectbox("👔 Função / Cargo",["Analista","Coordenador","Desenvolvedor","Especialista","Gestor"])
+        funcao = st.selectbox("👔 Função / Cargo", ["Analista","Coordenador","Desenvolvedor","Especialista","Gestor"])
     with col3:
-        ja_utilizou_ia = st.radio("🤖 Já utilizou alguma IA?",["Sim","Nao"], horizontal=True)
+        tempo_de_casa = st.slider("⏱️ Tempo de casa (anos)", 0, 40, 5)
 
-    tempo_de_casa = st.slider("⏱️ Tempo de casa (anos)", 0, 40, 5)
-    st.divider()
+    st.markdown(f"<h3 style='color:{CA_ESCURO}; border-bottom:2px solid {CA_AZUL}; padding-bottom:8px; margin-top:30px; margin-bottom:20px;'>2. Maturidade Digital</h3>", unsafe_allow_html=True)
+    
+    col_a, col_b = st.columns(2)
+    with col_a:
+        ja_utilizou_ia = st.radio("🤖 Já utilizou alguma IA profissionalmente?", ["Sim","Nao"], horizontal=True)
+    with col_b:
+        nivel_display = st.selectbox("💻 Nível atual de programação", list(map_nivel.keys()))
 
-    atividade_display = st.selectbox("📌 1) Qual tipo de atividade ocupa a maior parte do seu tempo atualmente?", list(map_atividade.keys()))
-    objetivo_display = st.selectbox("🚀 2) Qual resultado você mais quer alcançar com IA no seu trabalho nos próximos 6 meses?", list(map_objetivo.keys()))
-    impacto_display = st.selectbox("⚠️ 3) Se a IA errar no seu contexto, qual o risco?", list(map_impacto.keys()))
-    forma_display = st.selectbox("🎯 4) Como você pretende usar IA no seu trabalho?", list(map_forma.keys()))
-    nivel_display = st.selectbox("💻 5) Qual é seu nível atual de programação?", list(map_nivel.keys()))
+    st.markdown(f"<h3 style='color:{CA_ESCURO}; border-bottom:2px solid {CA_AZUL}; padding-bottom:8px; margin-top:30px; margin-bottom:20px;'>3. Contexto de Negócio</h3>", unsafe_allow_html=True)
+
+    atividade_display = st.selectbox("📌 Qual tipo de atividade ocupa a maior parte do seu tempo?", list(map_atividade.keys()))
+    objetivo_display = st.selectbox("🚀 Qual resultado você mais quer alcançar com IA (6 meses)?", list(map_objetivo.keys()))
+    
+    c_risk, c_use = st.columns(2)
+    with c_risk:
+        impacto_display = st.selectbox("⚠️ Se a IA errar no seu contexto, qual o risco?", list(map_impacto.keys()))
+    with c_use:
+        forma_display = st.selectbox("🎯 Como você pretende usar a IA?", list(map_forma.keys()))
 
     st.markdown("<br>", unsafe_allow_html=True)
-    if st.button("EXECUTAR ANÁLISE DE IA 🚀", type="primary", use_container_width=True):
-        st.session_state["inp"] = pd.DataFrame([{
-            "area": area,
-            "funcao": funcao,
-            "tempo_de_casa": tempo_de_casa,
-            "ja_utilizou_ia": ja_utilizou_ia,
-            "atividade_principal": map_atividade[atividade_display],
-            "objetivo_ia_6m": map_objetivo[objetivo_display],
-            "impacto_erro_ia": map_impacto[impacto_display],
-            "forma_uso_ia": map_forma[forma_display],
-            "nivel_programacao": map_nivel[nivel_display]
-        }])
-        st.success("✅ Perfil salvo! Vá para a aba **🎯 Recomendação Premium**.")
+    
+    # Botão centralizado e grande
+    _, col_btn, _ = st.columns([1, 2, 1])
+    with col_btn:
+        if st.button("GERAR RECOMENDAÇÃO PERSONALIZADA 🚀", type="primary", use_container_width=True):
+            st.session_state["inp"] = pd.DataFrame([{
+                "area": area,
+                "funcao": funcao,
+                "tempo_de_casa": tempo_de_casa,
+                "ja_utilizou_ia": ja_utilizou_ia,
+                "atividade_principal": map_atividade[atividade_display],
+                "objetivo_ia_6m": map_objetivo[objetivo_display],
+                "impacto_erro_ia": map_impacto[impacto_display],
+                "forma_uso_ia": map_forma[forma_display],
+                "nivel_programacao": map_nivel[nivel_display]
+            }])
+            st.success("✅ Perfil processado com sucesso! Acesse a aba 'Recomendação'.")
 
 # ══════════════════════════════════════════════════════════════════════
-# ABA 2 — RECOMENDAÇÃO DINÂMICA
+# ABA 2 — RECOMENDAÇÃO
 # ══════════════════════════════════════════════════════════════════════
 with aba2:
-    st.markdown(f"<h2 style='color:{CA_AZUL};'>🎯 Trilhas Recomendadas ({nome_tecnico})</h2>", unsafe_allow_html=True)
     if "inp" not in st.session_state:
-        st.info("👈 Preencha o perfil na aba **📋 Perfil** primeiro.")
+        st.info("👈 Por favor, preencha o **Perfil** na aba anterior para gerar as recomendações.")
     else:
-        proba    = model_ativo.predict_proba(st.session_state["inp"])[0]
-        top_idx  = np.argsort(-proba)[:3]
-        medalhas =["🥇","🥈","🥉"]
-        fundos   =[
-            f"linear-gradient(135deg,{cor_tema} 0%,{CA_ESCURO} 100%)",
-            f"linear-gradient(135deg,{CA_LARANJA} 0%,#E08B00 100%)",
-            f"linear-gradient(135deg,#4A7C59 0%,#2D5A3D 100%)"
+        st.markdown(f"<h3 style='color:{CA_ESCURO}; margin-bottom:20px;'>🎯 Trilhas Sugeridas pelo Modelo</h3>", unsafe_allow_html=True)
+        
+        proba = model_ativo.predict_proba(st.session_state["inp"])[0]
+        top_idx = np.argsort(-proba)[:3]
+        
+        medalhas = ["🥇 1ª Opção", "🥈 2ª Opção", "🥉 3ª Opção"]
+        fundos = [
+            f"linear-gradient(135deg, {cor_tema} 0%, {CA_ESCURO} 100%)",
+            f"linear-gradient(135deg, {CA_LARANJA} 0%, #E08B00 100%)",
+            f"linear-gradient(135deg, #4A7C59 0%, #2D5A3D 100%)"
         ]
-        bordas =[CA_LARANJA, "#ffffff", CA_CLARO]
-
-        st.markdown(f"<h3 style='color:{CA_ESCURO};margin-bottom:16px;'>TOP 3 Cursos Recomendados</h3>", unsafe_allow_html=True)
-
+        
         for i, idx in enumerate(top_idx):
             curso = classes[idx]
-            conf  = proba[idx] * 100
+            conf = proba[idx] * 100
             
             st.markdown(f"""
-<div class="banner-white" 
-     style="background:{fundos[i]};padding:28px 32px;border-radius:14px;
-            margin-bottom:14px;box-shadow:0 8px 24px rgba(0,0,0,0.18);
-            border-left:6px solid {bordas[i]};">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-    <h3 style="margin:0;font-size:1.35rem;font-weight:800;">{medalhas[i]} {curso}</h3>
-    <span style="background:rgba(255,255,255,0.25);padding:4px 16px;border-radius:20px;font-size:1rem;font-weight:700;">{conf:.1f}%</span>
-  </div>
-  <div style="background:rgba(255,255,255,0.2);border-radius:8px;height:10px;overflow:hidden;">
-    <div style="background:#ffffff;height:100%;width:{conf:.0f}%;border-radius:8px;"></div>
-  </div>
-  <p style="margin:10px 0 0 0;font-size:0.85rem;opacity:0.85;">
-    Confiança do {nome_tecnico} para este perfil
-  </p>
-</div>""", unsafe_allow_html=True)
+            <div class="banner-white" style="
+                background: {fundos[i]};
+                padding: 24px 30px;
+                border-radius: 12px;
+                margin-bottom: 16px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                border-left: 6px solid rgba(255,255,255,0.4);
+                transition: transform 0.2s;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <p style="font-size:0.9rem; font-weight:600; opacity:0.9; margin:0;">{medalhas[i]}</p>
+                        <h2 style="margin:4px 0 0 0; font-size:1.6rem; font-weight:800;">{curso}</h2>
+                    </div>
+                    <div style="text-align:right;">
+                        <span style="font-size:2rem; font-weight:900;">{conf:.0f}%</span>
+                        <p style="margin:0; font-size:0.8rem; opacity:0.8;">de aderência</p>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
         st.divider()
-        st.markdown(f"<h3 style='color:{CA_ESCURO};'>📊 Probabilidade — Todos os Cursos</h3>", unsafe_allow_html=True)
-
-        col_v1, col_v2 = st.columns([2, 1])
-        with col_v1:
+        
+        # Gráfico de probabilidades
+        col_chart, col_details = st.columns([2, 1])
+        with col_chart:
+            st.markdown(f"<h4 style='color:{CA_CINZA};'>📊 Distribuição de Probabilidades</h4>", unsafe_allow_html=True)
             sorted_idx = np.argsort(-proba)
-            fig, ax = plt.subplots(figsize=(10, 5))
-            fig.patch.set_facecolor("#F0F7FF"); ax.set_facecolor("#ffffff")
-            cores =[cor_tema if j < 3 else "#AAAAAA" for j in range(len(sorted_idx))]
-            ax.barh([classes[i] for i in sorted_idx], [proba[i]*100 for i in sorted_idx], color=cores, height=0.6)
-            ax.set_xlabel("Confiança (%)", color=CA_CINZA, fontsize=11, fontweight="bold")
-            ax.tick_params(colors=CA_CINZA, labelsize=10); ax.set_xlim(0, 105)
-            ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
-            ax.spines["left"].set_color("#dddddd"); ax.spines["bottom"].set_color("#dddddd")
-            for i_, idx_ in enumerate(sorted_idx):
-                ax.text(proba[idx_]*100+1.5, i_, f"{proba[idx_]*100:.1f}%", va="center", color=CA_CINZA, fontsize=9, fontweight="bold")
-            plt.tight_layout(); st.pyplot(fig, use_container_width=True); plt.close()
+            
+            fig, ax = plt.subplots(figsize=(8, 4))
+            fig.patch.set_facecolor("#F0F7FF")
+            ax.set_facecolor("#ffffff")
+            
+            y_pos = np.arange(len(classes))
+            scores = [proba[i]*100 for i in sorted_idx]
+            names = [classes[i] for i in sorted_idx]
+            
+            # Cores baseadas no ranking
+            bar_colors = [cor_tema if i < 3 else "#CCCCCC" for i in range(len(classes))]
+            
+            ax.barh(y_pos, scores, align='center', color=bar_colors, height=0.7)
+            ax.set_yticks(y_pos)
+            ax.set_yticklabels(names, fontsize=10, color="#333333")
+            ax.invert_yaxis()  
+            ax.set_xlabel('Probabilidade (%)', fontsize=9, color="#555555")
+            
+            # Remove bordas desnecessárias
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
+            ax.spines['left'].set_visible(False)
+            ax.spines['bottom'].set_color('#DDDDDD')
+            
+            st.pyplot(fig)
 
-        with col_v2:
-            perfil = st.session_state["inp"].iloc[0]
+        with col_details:
             st.markdown(f"""
-<div style="background:white;padding:20px;border-radius:10px;
-            border-left:5px solid {cor_tema};box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-  <h4 style="color:{cor_tema} !important;margin-top:0;margin-bottom:12px;">👤 Perfil Analisado</h4>
-  <p style="margin:4px 0;color:{CA_CINZA} !important;font-size:0.88rem;"><b>Área:</b> {perfil['area']}</p>
-  <p style="margin:4px 0;color:{CA_CINZA} !important;font-size:0.88rem;"><b>Cargo:</b> {perfil['funcao']}</p>
-  <p style="margin:4px 0;color:{CA_CINZA} !important;font-size:0.88rem;"><b>Casa:</b> {perfil['tempo_de_casa']} anos</p>
-  <p style="margin:4px 0;color:{CA_CINZA} !important;font-size:0.88rem;"><b>Já usou IA:</b> {perfil['ja_utilizou_ia']}</p>
-  <p style="margin:4px 0;color:{CA_CINZA} !important;font-size:0.88rem;"><b>Programação:</b> {perfil['nivel_programacao']}</p>
-  <hr style="border-color:#dddddd;margin:12px 0;">
-  <p style="margin:0;color:{cor_tema} !important;font-size:0.8rem;font-style:italic;">9 features avaliadas</p>
-</div>""", unsafe_allow_html=True)
+            <div style="background:white; padding:20px; border-radius:10px; border:1px solid #ddd;">
+                <h5 style="color:{CA_AZUL}; margin-top:0;">👤 Resumo do Perfil</h5>
+                <hr style="margin:10px 0;">
+                <p style="font-size:0.9rem;"><b>Área:</b> {st.session_state['inp'].iloc[0]['area']}</p>
+                <p style="font-size:0.9rem;"><b>Cargo:</b> {st.session_state['inp'].iloc[0]['funcao']}</p>
+                <p style="font-size:0.9rem;"><b>Prog.:</b> {nivel_display}</p>
+                <p style="font-size:0.9rem;"><b>Uso IA:</b> {ja_utilizou_ia}</p>
+                <p style="font-size:0.8rem; color:#888; margin-top:15px;">*Estas variáveis foram as que mais influenciaram a decisão do modelo.</p>
+            </div>
+            """, unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════
-# ABA 3 — MODELO & MÉTRICAS DINÂMICAS (BANNERS RESTAURADOS)
+# ABA 3 — MÉTRICAS
 # ══════════════════════════════════════════════════════════════════════
 with aba3:
     dados_kpi = kpis_dinamicos[modelo_selecionado]
@@ -316,52 +379,38 @@ with aba3:
     st.markdown(f"<h3 style='color:{cor_tema};'>📈 Performance do Modelo ({nome_tecnico})</h3>", unsafe_allow_html=True)
     st.markdown(f"<div style='background:#fff; padding:15px; border-left:4px solid {cor_tema}; border-radius:4px; margin-bottom:20px;'><b>Insight Técnico:</b> {dados_kpi['desc']}</div>", unsafe_allow_html=True)
 
-    # Restauração dos Banners Coloridos aqui
-    m1, m2, m3, m4 = st.columns(4)
-    kpis = [
-        (m1, dados_kpi["acc"], "Accuracy",      cor_tema,   CA_ESCURO),
-        (m2, dados_kpi["f1"], "Macro F1",      CA_LARANJA,"#E08B00"),
-        (m3, dados_kpi["top3"], "Top-3 Accuracy",CA_VERDE,  "#007A40"),
-        (m4, "9.493", "Total Empregados",    "#7B2D8B", "#4A1A55"),
-    ]
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Acurácia Global", dados_kpi["acc"])
+    c2.metric("Macro F1-Score", dados_kpi["f1"])
+    c3.metric("Top-3 Accuracy", dados_kpi["top3"], help="Chance do curso ideal estar entre as 3 primeiras sugestões")
+    c4.metric("Dataset", "9.493 linhas")
+
+    st.markdown("---")
     
-    for col_, val_, lbl_, c1_, c2_ in kpis:
-        with col_:
-            st.markdown(f"""
-<div class="banner-white" 
-     style="background:linear-gradient(135deg,{c1_} 0%,{c2_} 100%);
-            padding:22px;border-radius:12px;text-align:center;
-            box-shadow:0 4px 16px rgba(0,0,0,0.12);margin-bottom:8px;">
-  <h1 style="margin:0;font-size:2.2rem;font-weight:900;">{val_}</h1>
-  <p style="margin:8px 0 0 0;font-size:0.9rem;font-weight:600;opacity:0.9;">{lbl_}</p>
-</div>""", unsafe_allow_html=True)
-
-    st.divider()
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>📂 Dados do Treinamento</h3>", unsafe_allow_html=True)
-    d1,d2,d3,d4 = st.columns(4)
-    d1.metric("👥 Amostras Treino","7.594"); d2.metric("👥 Amostras Teste","1.899")
-    d3.metric("📊 Features Avaliadas","9"); d4.metric("🎓 Total de Cursos","8")
-
-    cursos_l =["Fundamentos IA","IA Explicável","Automação","IA Negócios","Prompting","Agentes IA","RAG","ML Negócio"]
-    qtds_l   =[2375,1768,1231,1129,904,871,774,441]
-    fig3, ax3 = plt.subplots(figsize=(10, 3.8))
-    fig3.patch.set_facecolor("#F0F7FF"); ax3.set_facecolor("#ffffff")
-    ax3.bar(range(len(cursos_l)),qtds_l,color=cor_tema,alpha=0.85,edgecolor=CA_ESCURO,linewidth=1.5,width=0.6)
-    ax3.set_ylabel("Quantidade",color=CA_CINZA,fontweight="bold")
-    ax3.set_xticks(range(len(cursos_l)))
-    ax3.set_xticklabels(cursos_l,rotation=30,ha="right",fontsize=9,color=CA_CINZA)
-    ax3.tick_params(colors=CA_CINZA)
-    ax3.spines["top"].set_visible(False); ax3.spines["right"].set_visible(False)
-    ax3.spines["left"].set_color("#dddddd"); ax3.spines["bottom"].set_color("#dddddd")
-    for i,v in enumerate(qtds_l):
-        ax3.text(i,v+50,str(v),ha="center",va="bottom",color=CA_ESCURO,fontsize=8,fontweight="bold")
-    plt.tight_layout(); st.pyplot(fig3); plt.close()
+    st.markdown(f"<h4 style='color:{CA_ESCURO}'>🔬 Detalhes do Treinamento</h4>", unsafe_allow_html=True)
+    
+    col_info1, col_info2 = st.columns(2)
+    with col_info1:
+        st.markdown("""
+        **Pipeline de Processamento:**
+        1. **Imputação:** Mediana (numéricos) e Moda (categóricos).
+        2. **Encoding:** One-Hot Encoding para variáveis categóricas.
+        3. **Scaling:** StandardScaler para tempo de casa.
+        4. **Balanceamento:** Pesos de classe ajustados (`class_weight='balanced'`).
+        """)
+    with col_info2:
+        st.markdown("""
+        **Validação:**
+        * **Split:** 80% Treino / 20% Teste (Estratificado)
+        * **Cross-Validation:** 5-Folds
+        * **Métrica Alvo:** F1-Score Macro (para garantir performance em classes minoritárias).
+        """)
 
 # ══════════════════════════════════════════════════════════════════════
-# ABA 4 — DETALHES DO PROJETO (COM TABELA HTML E CONTEÚDO RESTAURADO)
+# ABA 4 — DETALHES DO PROJETO
 # ══════════════════════════════════════════════════════════════════════
 with aba4:
-    st.markdown(f"<h2 style='color:{CA_AZUL};'>📄 Detalhes do Projeto</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color:{CA_AZUL};'>📄 Documentação do Projeto</h2>", unsafe_allow_html=True)
 
     # Banner de Resumo (Dinâmico)
     st.markdown(f"""
@@ -382,58 +431,46 @@ with aba4:
 </div>
 """, unsafe_allow_html=True)
 
-    # Tabela HTML Personalizada (Aspecto | Detalhe)
+    # Tabela de Negócios e Problema
     st.markdown("""
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th style="width: 20%;">Aspecto</th>
-          <th>Detalhe</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><b>Problema</b></td>
-          <td>Atualmente, na CAIXA, diferentes perfis (ex.: operações, atendimento, riscos, compliance, TI, dados) possuem demandas e usos distintos de IA como automação, agentes, RAG, machine learning, explicabilidade, etc. No entanto, como o tema é novo, os usuários precisam de auxílio para encontrar o treinamento que mais se aproxima de suas necessidades reais. Isso leva a:<br><br>• Baixa aplicação prática após o curso;<br>• Desperdício de investimento em treinamento;<br>• Risco de uso inadequado de IA em contextos críticos (ex.: risco/compliance/jurídico).</td>
-        </tr>
-        <tr>
-          <td><b>Objetivo</b></td>
-          <td>Acelerar a adoção de inteligência artificial de forma segura e alinhada às necessidades reais das áreas.</td>
-        </tr>
-        <tr>
-          <td><b>Solução</b></td>
-          <td>Será desenvolvido um modelo de <i>machine learning</i> para recomendação de curso/trilha de IA com base em um <i>assessment</i> que considera informações reais dos funcionários (perfil funcional, tipo de atividade, objetivo com IA, impacto do erro, forma de uso e nível de programação).</td>
-        </tr>
-        <tr>
-          <td><b>ROI</b></td>
-          <td>O ROI esperado do projeto está na redução de custos e do tempo despendido com treinamentos em IA pouco aderentes, aliada ao aumento da efetividade do uso de IA na Caixa.</td>
-        </tr>
-        <tr>
-          <td><b>Stakeholders</b></td>
-          <td>Áreas de negócio usuárias de IA (operações, atendimento, riscos, compliance, TI e dados), além das áreas de RH/L&D, governança de IA e liderança, responsáveis pela capacitação.</td>
-        </tr>
-        <tr>
-          <td><b>Critério de sucesso</b></td>
-          <td>O projeto será considerado bem-sucedido quando o modelo recomendar cursos ou trilhas de IA com, no mínimo, 80% de aderência percebida pelos usuários no pós-treinamento, e com taxa de conclusão de no mínimo 70%.</td>
-        </tr>
-      </tbody>
-    </table>
-    """, unsafe_allow_html=True)
+### 🎯 Contexto e Valor de Negócio
 
-    st.markdown("---")
-    
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>📂 Dataset de treinamento</h3>", unsafe_allow_html=True)
-    st.markdown("""
+| Aspecto | Detalhe |
+| :--- | :--- |
+| **Problema** | Atualmente, na CAIXA, diferentes perfis (ex.: operações, atendimento, riscos, compliance, TI, dados) possuem demandas e usos distintos de IA como automação, agentes, RAG, machine learning, explicabilidade, etc. No entanto, como o tema é novo, os usuários precisam de auxílio para encontrar o treinamento que mais se aproxima de suas necessidades reais. Isso leva a:<br><br>• Baixa aplicação prática após o curso;<br>• Desperdício de investimento em treinamento;<br>• Risco de uso inadequado de IA em contextos críticos (ex.: risco/compliance/jurídico). |
+| **Objetivo** | Acelerar a adoção de inteligência artificial de forma segura e alinhada às necessidades reais das áreas. |
+| **Solução** | Será desenvolvido um modelo de *machine learning* para recomendação de curso/trilha de IA com base em um *assessment* que considera informações reais dos funcionários (perfil funcional, tipo de atividade, objetivo com IA, impacto do erro, forma de uso e nível de programação). |
+| **ROI** | O ROI esperado do projeto está na redução de custos e do tempo despendido com treinamentos em IA pouco aderentes, aliada ao aumento da efetividade do uso de IA na Caixa. |
+| **Stakeholders** | Áreas de negócio usuárias de IA (operações, atendimento, riscos, compliance, TI e dados), além das áreas de RH/L&D, governança de IA e liderança, responsáveis pela capacitação. |
+| **Critério de sucesso** | O projeto será considerado bem-sucedido quando o modelo recomendar cursos ou trilhas de IA com, no mínimo, 80% de aderência percebida pelos usuários no pós-treinamento, e com taxa de conclusão de no mínimo 70%. |
+
+---
+
+### 📂 Base de Dados e Variáveis
+
+**Dataset de treinamento**  
 O dataset de treinamento foi construído a partir de benchmarks derivados de um *assessment* previamente realizado com o objetivo de identificar as principais dores e desafios enfrentados pelos colaboradores. Os dados coletados nesse diagnóstico foram tratados e analisados para mapear lacunas de competências e necessidades de treinamento. A partir desse conjunto inicial, aplicou-se a técnica de geração de dados sintéticos (*data augmentation*) baseada em *Large Language Models* (LLMs), permitindo a criação de novas linhas sintéticas coerentes com os padrões observados, ampliando a representatividade do dataset e fortalecendo a robustez do processo de treinamento.
-    """)
 
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>🛡️ Qualidade do Dataset</h3>", unsafe_allow_html=True)
-    st.markdown("""
+**Qualidade do Dataset**  
 Foi desenvolvido um notebook de validação e tratamento de qualidade do dataset com o objetivo de assegurar a integridade dos dados utilizados no treinamento. Esse notebook busca garantir que, mesmo após a geração de dados sintéticos, todas as linhas permaneçam aderentes às regras e restrições do modelo (ex.: formatos, domínios permitidos e coerência entre campos), além de identificar e remover registros duplicados e potenciais inconsistências que possam comprometer a performance e a confiabilidade do modelo.
-    """)
 
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>⚙️ Metodologia de projeto (CRISP-DM)</h3>", unsafe_allow_html=True)
-    st.markdown("""
+**As 9 Features do Modelo**
+| # | Feature | Tipo | Processamento no Pipeline |
+|---|---------|------|---------------------------|
+| 1 | Área de atuação | Categórica | `OneHotEncoder` |
+| 2 | Função/Cargo | Categórica | `OneHotEncoder` |
+| 3 | Tempo de casa | Numérica | `StandardScaler` |
+| 4 | Já utilizou IA | Binária | `OneHotEncoder` |
+| 5 | Atividade principal | Categórica | `OneHotEncoder` |
+| 6 | Objetivo 6 meses | Categórica | `OneHotEncoder` |
+| 7 | Impacto do erro | Categórica | `OneHotEncoder` |
+| 8 | Forma de uso de IA | Categórica | `OneHotEncoder` |
+| 9 | Nível de programação | Categórica | `OneHotEncoder` |
+
+---
+
+### ⚙️ Metodologia de Projeto (CRISP-DM)
+
 O projeto foi desenvolvido seguindo a metodologia **CRISP-DM**, com fases bem definidas e encadeadas, estruturada nas seguintes etapas:
 
 1. **Entendimento do Negócio (Business Understanding)**  
@@ -454,21 +491,4 @@ Validação dos modelos desenvolvidos (Cross-Validation 5-Folds), análise de de
 Consolidação dos resultados, organização dos artefatos finais e disponibilização das entregas do projeto (Aplicativo Streamlit em Nuvem).
 
 Como resultado da primeira etapa (Entendimento do Negócio e dos Dados), foi elaborado um documento formal em formato PDF, consolidando os objetivos, escopo, premissas, critérios de sucesso e principais achados do assessment. As etapas técnicas foram documentadas por meio de notebooks em Python (exploração dos dados, tratamento, geração de dados sintéticos, modelagem e validação) garantindo transparência, reprodutibilidade e controle técnico do desenvolvimento do projeto.
-    """)
-
-    st.markdown("---")
-
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>🧬 As 9 Features do Modelo</h3>", unsafe_allow_html=True)
-    st.markdown("""
-| # | Feature | Tipo | Processamento no Pipeline |
-|---|---------|------|---------------------------|
-| 1 | Área de atuação | Categórica | `OneHotEncoder` |
-| 2 | Função/Cargo | Categórica | `OneHotEncoder` |
-| 3 | Tempo de casa | Numérica | `StandardScaler` |
-| 4 | Já utilizou IA | Binária | `OneHotEncoder` |
-| 5 | Atividade principal | Categórica | `OneHotEncoder` |
-| 6 | Objetivo 6 meses | Categórica | `OneHotEncoder` |
-| 7 | Impacto do erro | Categórica | `OneHotEncoder` |
-| 8 | Forma de uso de IA | Categórica | `OneHotEncoder` |
-| 9 | Nível de programação | Categórica | `OneHotEncoder` |
     """)
