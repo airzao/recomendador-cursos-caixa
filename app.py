@@ -509,25 +509,15 @@ Como resultado da primeira etapa (Entendimento do Negócio e dos Dados), foi ela
 
     st.markdown(f"<h3 style='color:{CA_ESCURO};'>🧬 As 9 Features do Modelo</h3>", unsafe_allow_html=True)
     st.markdown("""
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Feature</th>
-          <th>Tipo</th>
-          <th>Processamento no Pipeline</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Área de atuação</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>2</td><td>Função/Cargo</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>3</td><td>Tempo de casa</td><td>Numérica</td><td>StandardScaler</td></tr>
-        <tr><td>4</td><td>Já utilizou IA</td><td>Binária</td><td>OneHotEncoder</td></tr>
-        <tr><td>5</td><td>Atividade principal</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>6</td><td>Objetivo 6 meses</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>7</td><td>Impacto do erro</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>8</td><td>Forma de uso de IA</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>9</td><td>Nível de programação</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-      </tbody>
-    </table>
-    """, unsafe_allow_html=True)
+| # | Feature | Tipo | Processamento no Pipeline |
+|---|---------|------|---------------------------|
+| 1 | Área de atuação | Categórica | `OneHotEncoder` |
+| 2 | Função/Cargo | Categórica | `OneHotEncoder` |
+| 3 | Tempo de casa | Numérica | `StandardScaler` |
+| 4 | Já utilizou IA | Binária | `OneHotEncoder` |
+| 5 | Atividade principal | Categórica | `OneHotEncoder` |
+| 6 | Objetivo 6 meses | Categórica | `OneHotEncoder` |
+| 7 | Impacto do erro | Categórica | `OneHotEncoder` |
+| 8 | Forma de uso de IA | Categórica | `OneHotEncoder` |
+| 9 | Nível de programação | Categórica | `OneHotEncoder` |
+    """)
