@@ -27,8 +27,7 @@ st.markdown("""
 <style>
 /* FUNDO E TEXTO BASE */
 html, body,
-[data-testid="stAppViewContainer"],
-[data-testid="stMain"],[data-testid="block-container"],
+[data-testid="stAppViewContainer"],[data-testid="stMain"],[data-testid="block-container"],
 section.main, .main {
     background-color: #F0F7FF !important;
     color: #333333 !important;
@@ -63,9 +62,7 @@ label,
     border-radius: 6px !important;
 }
 
-/* Radio e Slider */
-[data-testid="stRadio"] label p { color: #333333 !important; }
-[data-testid="stSlider"] p { color: #333333 !important; }
+/* Radio e Slider */[data-testid="stRadio"] label p { color: #333333 !important; }[data-testid="stSlider"] p { color: #333333 !important; }
 
 /* Tabs */
 .stTabs[data-baseweb="tab-list"] {
@@ -91,7 +88,7 @@ thead tr th { background-color: #0070B8 !important; color: white !important; pad
 tbody tr td { color: #333333 !important; padding: 8px !important; }
 tbody tr:nth-child(even) td { background-color: #E8F4FF !important; }
 
-/* ===== MÉTRICAS NATIVAS (Ajustado para o Dataset) ===== */[data-testid="metric-container"],
+/* ===== MÉTRICAS NATIVAS ===== */[data-testid="metric-container"],
 [data-testid="stMetric"] { 
     background-color: #ffffff !important; 
     border-radius: 10px !important; 
@@ -177,13 +174,14 @@ with aba1:
         st.success("✅ Perfil salvo! Vá para a aba **🎯 Recomendação Premium**.")
 
 # ══════════════════════════════════════════════════════════════════════
-# ABA 2 — RECOMENDAÇÃO
+# ABA 2 — RECOMENDAÇÃO & RAIO-X
 # ══════════════════════════════════════════════════════════════════════
 with aba2:
     st.markdown(f"<h2 style='color:{CA_AZUL};'>🎯 Trilhas Recomendadas para o seu Perfil</h2>", unsafe_allow_html=True)
     if "inp" not in st.session_state:
         st.info("👈 Preencha o perfil na aba **📋 Perfil** primeiro.")
     else:
+        # Predição principal
         proba    = model.predict_proba(st.session_state["inp"])[0]
         top_idx  = np.argsort(-proba)[:3]
         medalhas = ["🥇","🥈","🥉"]
@@ -196,6 +194,7 @@ with aba2:
 
         st.markdown(f"<h3 style='color:{CA_ESCURO};margin-bottom:16px;'>TOP 3 Cursos Recomendados</h3>", unsafe_allow_html=True)
 
+        # Loop dos Banners
         for i, idx in enumerate(top_idx):
             curso = classes[idx]
             conf  = proba[idx] * 100
@@ -249,6 +248,78 @@ with aba2:
   <hr style="border-color:#0070B8;opacity:0.2;margin:12px 0;">
   <p style="margin:0;color:{CA_AZUL} !important;font-size:0.8rem;font-style:italic;">9 features analisadas pelo modelo</p>
 </div>""", unsafe_allow_html=True)
+
+        st.divider()
+        
+        # ─── NOVO: RAIO-X DO MODELO (COMPARAÇÃO STACKING) ───
+        with st.expander("🕵️ Raio-X da IA: O que cada algoritmo votou? (Visão Acadêmica)", expanded=False):
+            st.markdown(f"""
+            <p style='color:{CA_CINZA};'>
+            Esta visualização prova o valor do <b>Stacking Classifier</b>. Abaixo você vê exatamente qual foi o grau de confiança 
+            isolado do Gradient Boosting, Random Forest e da Regressão Logística para o seu Top 3, e como o <b>Meta-Modelo</b> 
+            (barra verde) ponderou essas opiniões para gerar a decisão final.
+            </p>
+            """, unsafe_allow_html=True)
+            
+            try:
+                # Bypass: Passa os dados apenas pelo pré-processamento (Pipeline sem o último step)
+                X_prep = model[:-1].transform(st.session_state["inp"])
+                
+                # Puxa o classificador final
+                stacking_clf = model.named_steps["model"]
+                
+                # Coleta as predições individuais dos modelos base (0: GB, 1: RF, 2: LR)
+                prob_gb = stacking_clf.estimators_[0].predict_proba(X_prep)[0]
+                prob_rf = stacking_clf.estimators_[1].predict_proba(X_prep)[0]
+                prob_lr = stacking_clf.estimators_[2].predict_proba(X_prep)[0]
+                
+                # Configurando o gráfico de barras agrupadas
+                fig_rx, ax_rx = plt.subplots(figsize=(10, 5))
+                fig_rx.patch.set_facecolor("#F0F7FF")
+                ax_rx.set_facecolor("#ffffff")
+                
+                x = np.arange(len(top_idx))
+                width = 0.2
+                
+                # Extrai apenas as probas do top 3
+                y_gb = [prob_gb[idx]*100 for idx in top_idx]
+                y_rf =[prob_rf[idx]*100 for idx in top_idx]
+                y_lr =[prob_lr[idx]*100 for idx in top_idx]
+                y_meta = [proba[idx]*100 for idx in top_idx]
+                
+                # Plotando as barras
+                rects1 = ax_rx.bar(x - 1.5*width, y_gb, width, label='Gradient Boosting', color=CA_AZUL)
+                rects2 = ax_rx.bar(x - 0.5*width, y_rf, width, label='Random Forest', color=CA_LARANJA)
+                rects3 = ax_rx.bar(x + 0.5*width, y_lr, width, label='Regressão Logística', color="#888888")
+                rects4 = ax_rx.bar(x + 1.5*width, y_meta, width, label='🏆 Meta-Modelo (Final)', color=CA_VERDE)
+                
+                # Customizações
+                ax_rx.set_ylabel('Confiança (%)', color=CA_CINZA, fontweight="bold")
+                ax_rx.set_xticks(x)
+                ax_rx.set_xticklabels([classes[idx] for idx in top_idx], fontsize=10, color=CA_ESCURO, fontweight="bold")
+                ax_rx.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=4, frameon=False, fontsize=9)
+                ax_rx.set_ylim(0, 115) # Espaço extra para as labels
+                ax_rx.spines["top"].set_visible(False)
+                ax_rx.spines["right"].set_visible(False)
+                ax_rx.spines["left"].set_color("#dddddd")
+                ax_rx.spines["bottom"].set_color("#dddddd")
+                
+                # Adicionando o percentual em cima de cada barra
+                for rects in[rects1, rects2, rects3, rects4]:
+                    for rect in rects:
+                        height = rect.get_height()
+                        ax_rx.annotate(f'{height:.0f}%',
+                                    xy=(rect.get_x() + rect.get_width() / 2, height),
+                                    xytext=(0, 3),  
+                                    textcoords="offset points",
+                                    ha='center', va='bottom', fontsize=8, color=CA_CINZA)
+                
+                plt.tight_layout()
+                st.pyplot(fig_rx, use_container_width=True)
+                plt.close()
+                
+            except Exception as e:
+                st.warning("Ops! Não foi possível extrair os modelos base para a visualização. Certifique-se de que a ordem dos estimadores no Pipeline permaneça a mesma.")
 
 # ══════════════════════════════════════════════════════════════════════
 # ABA 3 — MODELO & MÉTRICAS
@@ -431,4 +502,22 @@ with aba4:
 | **Weighted F1** | 92,9% | Ponderado pelo tamanho da classe |
 | **Top-3 Accuracy** | **99,0%** | Curso ideal entre os 3 recomendados |
 
+---
+
+### 🚀 Deployment & Tecnologias
+
+- **Linguagem:** Python 3.13
+- **ML:** Scikit-learn 1.6.1 (StackingClassifier)
+- **Frontend:** Streamlit 1.54
+- **Versionamento:** GitHub
+- **Hosting:** Streamlit Cloud (CI/CD automático)
+
+---
+
+### 💡 Próximos Passos
+
+✅ Pronto para produção — link público e funcional  
+🔜 Feedback loop + retraining periódico  
+🔜 SHAP values para explicar cada predição individualmente  
+🔜 Integração com LMS corporativo
     """)
