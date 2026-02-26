@@ -407,7 +407,7 @@ with aba3:
         """)
 
 # ══════════════════════════════════════════════════════════════════════
-# ABA 4 — DETALHES DO PROJETO (MERGE DO CONTEÚDO)
+# ABA 4 — DETALHES DO PROJETO (COM TABELA HTML E CONTEÚDO RESTAURADO)
 # ══════════════════════════════════════════════════════════════════════
 with aba4:
     st.markdown(f"<h2 style='color:{CA_AZUL};'>📄 Detalhes do Projeto</h2>", unsafe_allow_html=True)
@@ -431,7 +431,7 @@ with aba4:
 </div>
 """, unsafe_allow_html=True)
 
-    # Tabela HTML Personalizada para lidar com <br> e formatação
+    # Tabela HTML Personalizada (Aspecto | Detalhe)
     st.markdown("""
     <table class="custom-table">
       <thead>
@@ -481,7 +481,7 @@ O dataset de treinamento foi construído a partir de benchmarks derivados de um 
 Foi desenvolvido um notebook de validação e tratamento de qualidade do dataset com o objetivo de assegurar a integridade dos dados utilizados no treinamento. Esse notebook busca garantir que, mesmo após a geração de dados sintéticos, todas as linhas permaneçam aderentes às regras e restrições do modelo (ex.: formatos, domínios permitidos e coerência entre campos), além de identificar e remover registros duplicados e potenciais inconsistências que possam comprometer a performance e a confiabilidade do modelo.
     """)
 
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>⚙️ Metodologia de projeto</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='color:{CA_ESCURO};'>⚙️ Metodologia de projeto (CRISP-DM)</h3>", unsafe_allow_html=True)
     st.markdown("""
 O projeto foi desenvolvido seguindo a metodologia **CRISP-DM**, com fases bem definidas e encadeadas, estruturada nas seguintes etapas:
 
@@ -509,25 +509,15 @@ Como resultado da primeira etapa (Entendimento do Negócio e dos Dados), foi ela
 
     st.markdown(f"<h3 style='color:{CA_ESCURO};'>🧬 As 9 Features do Modelo</h3>", unsafe_allow_html=True)
     st.markdown("""
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Feature</th>
-          <th>Tipo</th>
-          <th>Processamento no Pipeline</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Área de atuação</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>2</td><td>Função/Cargo</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>3</td><td>Tempo de casa</td><td>Numérica</td><td>StandardScaler</td></tr>
-        <tr><td>4</td><td>Já utilizou IA</td><td>Binária</td><td>OneHotEncoder</td></tr>
-        <tr><td>5</td><td>Atividade principal</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>6</td><td>Objetivo 6 meses</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>7</td><td>Impacto do erro</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>8</td><td>Forma de uso de IA</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-        <tr><td>9</td><td>Nível de programação</td><td>Categórica</td><td>OneHotEncoder</td></tr>
-      </tbody>
-    </table>
-    """, unsafe_allow_html=True)
+| # | Feature | Tipo | Processamento no Pipeline |
+|---|---------|------|---------------------------|
+| 1 | Área de atuação | Categórica | `OneHotEncoder` |
+| 2 | Função/Cargo | Categórica | `OneHotEncoder` |
+| 3 | Tempo de casa | Numérica | `StandardScaler` |
+| 4 | Já utilizou IA | Binária | `OneHotEncoder` |
+| 5 | Atividade principal | Categórica | `OneHotEncoder` |
+| 6 | Objetivo 6 meses | Categórica | `OneHotEncoder` |
+| 7 | Impacto do erro | Categórica | `OneHotEncoder` |
+| 8 | Forma de uso de IA | Categórica | `OneHotEncoder` |
+| 9 | Nível de programação | Categórica | `OneHotEncoder` |
+    """)
