@@ -24,25 +24,41 @@ CA_BRANCO  = "#FFFFFF"
 # ═══════════════════════════════════════════
 st.markdown("""
 <style>
-html, body,[data-testid="stAppViewContainer"], [data-testid="stMain"], [data-testid="block-container"], section.main, .main {
+/* Fundo e textos gerais */
+html, body,[data-testid="stAppViewContainer"], [data-testid="stMain"],[data-testid="block-container"], section.main, .main {
     background-color: #F0F7FF !important;
     color: #333333 !important;
 }
+
+/* Forçar texto branco apenas DENTRO dos banners coloridos */
 .banner-white, .banner-white h1, .banner-white h2, .banner-white h3, .banner-white h4, .banner-white p, .banner-white span, .banner-white b, .banner-white strong {
     color: #ffffff !important;
 }
+
+/* Inputs do formulário */
 label,[data-testid="stWidgetLabel"] p {
     color: #333333 !important; font-weight: 600 !important; font-size: 0.95rem !important;
 }
 [data-testid="stSelectbox"] > div > div { background-color: #ffffff !important; border: 1.5px solid #0070B8 !important; border-radius: 6px !important; }
-.stTabs [data-baseweb="tab-list"] { border-bottom: 3px solid #0070B8 !important; background-color: #F0F7FF !important; }
-.stTabs[data-baseweb="tab"] { color: #333333 !important; font-weight: 600; padding: 10px 20px; }
-.stTabs [aria-selected="true"] { color: #0070B8 !important; background-color: #ffffff !important; border-bottom: 3px solid #0070B8 !important; }
+
+/* ======== CORREÇÃO DAS ABAS (TABS) ======== */
+.stTabs[data-baseweb="tab-list"] { border-bottom: 3px solid #0070B8 !important; background-color: #F0F7FF !important; }
+.stTabs[data-baseweb="tab"] { background-color: transparent !important; }
+.stTabs [data-baseweb="tab"] p { color: #333333 !important; font-weight: 600 !important; font-size: 1.05rem !important; }
+.stTabs [aria-selected="true"] { background-color: #ffffff !important; border-bottom: 3px solid #0070B8 !important; border-radius: 8px 8px 0 0; }
+.stTabs[aria-selected="true"] p { color: #0070B8 !important; }
+
+/* ======== CORREÇÃO DA SIDEBAR E MENU RADIO ======== */
+[data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #dee2e6; }
+[data-testid="stSidebar"] h2, [data-testid="stSidebar"] p, [data-testid="stSidebar"] span,[data-testid="stSidebar"] label { color: #333333 !important; }[data-testid="stRadio"] label p { color: #333333 !important; font-weight: 500 !important; }
+
+/* Métricas Nativas */
 [data-testid="metric-container"],[data-testid="stMetric"] { background-color: #ffffff !important; border-radius: 10px !important; padding: 16px !important; border: 1px solid #dee2e6 !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; }
 [data-testid="stMetricLabel"] *,[data-testid="metric-container"] label { color: #555555 !important; font-weight: 600 !important; }
-[data-testid="stMetricValue"] *, [data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }
+[data-testid="stMetricValue"] *,[data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }
+
+/* Botão principal */
 [data-testid="baseButton-primary"] { background-color: #0070B8 !important; color: white !important; font-weight: 700 !important; border-radius: 8px !important; border: none !important; }
-[data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #dee2e6; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -59,8 +75,8 @@ modelos_dict = load_models()
 # ═══════════════════════════════════════════
 # SIDEBAR - SIMULADOR DINÂMICO
 # ═══════════════════════════════════════════
-st.sidebar.markdown(f"<h2 style='color:{CA_AZUL};'>🛠️ Simulador de Modelos</h2>", unsafe_allow_html=True)
-st.sidebar.markdown(f"<p style='color:{CA_CINZA}; font-size:0.9rem;'>Escolha o algoritmo abaixo para ver como o aplicativo e as métricas reagem em tempo real.</p>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<h2 style='color:{CA_AZUL} !important; font-weight: 800;'>🛠️ Simulador de Modelos</h2>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<p style='color:{CA_CINZA}; font-size:0.95rem;'>Escolha o algoritmo abaixo para ver como o aplicativo e as métricas reagem em tempo real.</p>", unsafe_allow_html=True)
 
 modelo_selecionado = st.sidebar.radio(
     "Modelo Ativo:",
