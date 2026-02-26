@@ -377,12 +377,4 @@ with aba4:
 - **Versionamento:** GitHub
 - **Hosting:** Streamlit Cloud (CI/CD automático)
 
----
-
-### 💡 Próximos Passos
-
-✅ Pronto para produção — link público e funcional  
-🔜 Feedback loop + retraining periódico  
-🔜 SHAP values para explicar cada predição individualmente  
-🔜 Integração com LMS corporativo
     """)
