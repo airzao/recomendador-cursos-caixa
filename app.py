@@ -454,8 +454,23 @@ O dataset de treinamento foi construído a partir de benchmarks derivados de um 
 **Qualidade do Dataset**  
 Foi desenvolvido um notebook de validação e tratamento de qualidade do dataset com o objetivo de assegurar a integridade dos dados utilizados no treinamento. Esse notebook busca garantir que, mesmo após a geração de dados sintéticos, todas as linhas permaneçam aderentes às regras e restrições do modelo (ex.: formatos, domínios permitidos e coerência entre campos), além de identificar e remover registros duplicados e potenciais inconsistências que possam comprometer a performance e a confiabilidade do modelo.
 
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>⚙️ Metodologia de projeto (CRISP-DM)</h3>", unsafe_allow_html=True)
-    st.markdown("""
+**As 9 Features do Modelo**
+| # | Feature | Tipo | Processamento no Pipeline |
+|---|---------|------|---------------------------|
+| 1 | Área de atuação | Categórica | `OneHotEncoder` |
+| 2 | Função/Cargo | Categórica | `OneHotEncoder` |
+| 3 | Tempo de casa | Numérica | `StandardScaler` |
+| 4 | Já utilizou IA | Binária | `OneHotEncoder` |
+| 5 | Atividade principal | Categórica | `OneHotEncoder` |
+| 6 | Objetivo 6 meses | Categórica | `OneHotEncoder` |
+| 7 | Impacto do erro | Categórica | `OneHotEncoder` |
+| 8 | Forma de uso de IA | Categórica | `OneHotEncoder` |
+| 9 | Nível de programação | Categórica | `OneHotEncoder` |
+
+---
+
+### ⚙️ Metodologia de Projeto (CRISP-DM)
+
 O projeto foi desenvolvido seguindo a metodologia **CRISP-DM**, com fases bem definidas e encadeadas, estruturada nas seguintes etapas:
 
 1. **Entendimento do Negócio (Business Understanding)**  
@@ -477,8 +492,6 @@ Consolidação dos resultados, organização dos artefatos finais e disponibiliz
 
 Como resultado da primeira etapa (Entendimento do Negócio e dos Dados), foi elaborado um documento formal em formato PDF, consolidando os objetivos, escopo, premissas, critérios de sucesso e principais achados do assessment. As etapas técnicas foram documentadas por meio de notebooks em Python (exploração dos dados, tratamento, geração de dados sintéticos, modelagem e validação) garantindo transparência, reprodutibilidade e controle técnico do desenvolvimento do projeto.
     """)
-
-    st.markdown("---")
 
     st.markdown(f"<h3 style='color:{CA_ESCURO};'>🧬 As 9 Features do Modelo</h3>", unsafe_allow_html=True)
     st.markdown("""
