@@ -55,19 +55,16 @@ div[data-baseweb="popover"] ul li:hover { background-color: #E8F4FF !important; 
 /* ======== CORREÇÃO DAS ABAS ======== */
 .stTabs[data-baseweb="tab-list"] { border-bottom: 3px solid #0070B8 !important; background-color: #F0F7FF !important; }
 .stTabs[data-baseweb="tab"] { background-color: transparent !important; }
-.stTabs [data-baseweb="tab"] p { color: #888888 !important; font-weight: 600 !important; font-size: 1.05rem !important; }
+.stTabs[data-baseweb="tab"] p { color: #888888 !important; font-weight: 600 !important; font-size: 1.05rem !important; }
 .stTabs[aria-selected="true"] { background-color: #ffffff !important; border-bottom: 3px solid #0070B8 !important; border-radius: 8px 8px 0 0; }
 .stTabs [aria-selected="true"] p { color: #0070B8 !important; }
 
-/* ======== CORREÇÃO DA SIDEBAR E RADIO ======== */
-[data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #dee2e6; }
-[data-testid="stSidebar"] h2, [data-testid="stSidebar"] p,[data-testid="stSidebar"] span, [data-testid="stSidebar"] label { color: #333333 !important; }
+/* ======== CORREÇÃO DA SIDEBAR E RADIO ======== */[data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #dee2e6; }
+[data-testid="stSidebar"] h2,[data-testid="stSidebar"] p,[data-testid="stSidebar"] span, [data-testid="stSidebar"] label { color: #333333 !important; }
 [data-testid="stRadio"] label p { color: #333333 !important; font-weight: 500 !important; }
 
 /* ======== MÉTRICAS E BOTÕES ======== */
-[data-testid="metric-container"],[data-testid="stMetric"] { background-color: #ffffff !important; border-radius: 10px !important; padding: 16px !important; border: 1px solid #dee2e6 !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; }[data-testid="stMetricLabel"] *, [data-testid="metric-container"] label { color: #555555 !important; font-weight: 600 !important; }
-[data-testid="stMetricValue"] *, [data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }
-[data-testid="baseButton-primary"] { background-color: #0070B8 !important; color: white !important; font-weight: 700 !important; border-radius: 8px !important; border: none !important; }
+[data-testid="metric-container"],[data-testid="stMetric"] { background-color: #ffffff !important; border-radius: 10px !important; padding: 16px !important; border: 1px solid #dee2e6 !important; box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; }[data-testid="stMetricLabel"] *, [data-testid="metric-container"] label { color: #555555 !important; font-weight: 600 !important; }[data-testid="stMetricValue"] *, [data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }[data-testid="baseButton-primary"] { background-color: #0070B8 !important; color: white !important; font-weight: 700 !important; border-radius: 8px !important; border: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -189,7 +186,7 @@ with aba1:
     st.markdown(f"<h2 style='color:{CA_AZUL};margin-bottom:4px;'>📋 Perfil do Empregado</h2>", unsafe_allow_html=True)
     st.markdown(f"<p style='color:{CA_CINZA};margin-top:0;margin-bottom:20px;'>Preencha os dados abaixo para receber recomendações personalizadas.</p>", unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([1.5, 1, 1])
+    col1, col2, col3 = st.columns([1, 1])
     with col1:
         area = st.selectbox("🏢 Área de atuação",["Agencia Varejo","Atendimento","Controladoria","Credito","Financeiro","Juridico","Operacoes","Prevencao a Fraudes","Riscos","TI","Dados e Analytics","PMO","RH","Produtos","Auditoria Interna","Compliance","Seguranca da Informacao"])
     with col2:
@@ -290,9 +287,8 @@ with aba2:
   <p style="margin:4px 0;color:{CA_CINZA} !important;font-size:0.88rem;"><b>Cargo:</b> {perfil['funcao']}</p>
   <p style="margin:4px 0;color:{CA_CINZA} !important;font-size:0.88rem;"><b>Casa:</b> {perfil['tempo_de_casa']} anos</p>
   <p style="margin:4px 0;color:{CA_CINZA} !important;font-size:0.88rem;"><b>Já usou IA:</b> {perfil['ja_utilizou_ia']}</p>
-  <p style="margin:4px 0;color:{CA_CINZA} !important;font-size:0.88rem;"><b>Programação:</b> {perfil['nivel_programacao']}</p>
   <hr style="border-color:#dddddd;margin:12px 0;">
-  <p style="margin:0;color:{cor_tema} !important;font-size:0.8rem;font-style:italic;">9 features avaliadas</p>
+  <p style="margin:0;color:{cor_tema} !important;font-size:0.8rem;font-style:italic;">9 features avaliadas pelo modelo</p>
 </div>""", unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════
@@ -345,54 +341,88 @@ with aba3:
     plt.tight_layout(); st.pyplot(fig3); plt.close()
 
 # ══════════════════════════════════════════════════════════════════════
-# ABA 4 — DETALHES DO PROJETO
+# ABA 4 — DETALHES DO PROJETO (MERGE DO CONTEÚDO)
 # ══════════════════════════════════════════════════════════════════════
 with aba4:
-    st.markdown(f"<h2 style='color:{CA_AZUL};'>📄 Detalhes do Projeto</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color:{cor_tema};'>📄 Detalhes do Projeto</h2>", unsafe_allow_html=True)
 
-    # Tabela estilizada em Markdown
+    # Banner de Resumo (Dinâmico)
+    st.markdown(f"""
+<div class="banner-white" 
+     style="background:linear-gradient(135deg,{cor_tema} 0%,{CA_ESCURO} 100%);
+            padding:28px 32px;border-radius:14px;margin-bottom:24px;">
+  <h3 style="margin:0 0 12px 0;font-size:1.4rem;">📚 Resumo Executivo</h3>
+  <p style="margin:0;font-size:1rem;line-height:1.7;">
+    Sistema inteligente de recomendação de trilhas de Inteligência Artificial
+    para os empregados da
+    <span style="font-weight:700;text-decoration:underline;">Caixa Econômica Federal</span>.
+    A prova de conceito (PoC) compara três algoritmos: Regressão Logística, Random Forest e Gradient Boosting.
+    O vencedor escolhido para produção foi o <span style="font-weight:700;">Gradient Boosting Classifier</span> 
+    que atingiu <span style="font-weight:700;">93,4% de acurácia</span> 
+    e garante que o curso ideal esteja entre os 3 recomendados em 
+    <span style="font-weight:700;">97,7% dos casos</span>.
+  </p>
+</div>
+""", unsafe_allow_html=True)
+
+    # Tabela de Negócios e Problema
     st.markdown("""
+### 🎯 Contexto e Valor de Negócio
+
 | Aspecto | Detalhe |
 | :--- | :--- |
-| **Problema** | Atualmente, na CAIXA, diferentes perfis (ex.: operações, atendimento, riscos, compliance, TI, dados) possuem demandas e usos distintos de IA como automação, agentes, RAG, machine learning, explicabilidade, etc. No entanto, como o tema é novo, os usuários precisam de auxílio para encontrar o treinamento que mais se aproxima de suas necessidades reais. Isso leva a:<br><br>• baixa aplicação prática após o curso;<br>• desperdício de investimento em treinamento;<br>• risco de uso inadequado de IA em contextos críticos (ex.: risco/compliance/jurídico). |
+| **Problema** | Atualmente, na CAIXA, diferentes perfis (ex.: operações, atendimento, riscos, compliance, TI, dados) possuem demandas e usos distintos de IA como automação, agentes, RAG, machine learning, explicabilidade, etc. No entanto, como o tema é novo, os usuários precisam de auxílio para encontrar o treinamento que mais se aproxima de suas necessidades reais. Isso leva a:<br><br>• Baixa aplicação prática após o curso;<br>• Desperdício de investimento em treinamento;<br>• Risco de uso inadequado de IA em contextos críticos (ex.: risco/compliance/jurídico). |
 | **Objetivo** | Acelerar a adoção de inteligência artificial de forma segura e alinhada às necessidades reais das áreas. |
 | **Solução** | Será desenvolvido um modelo de *machine learning* para recomendação de curso/trilha de IA com base em um *assessment* que considera informações reais dos funcionários (perfil funcional, tipo de atividade, objetivo com IA, impacto do erro, forma de uso e nível de programação). |
 | **ROI** | O ROI esperado do projeto está na redução de custos e do tempo despendido com treinamentos em IA pouco aderentes, aliada ao aumento da efetividade do uso de IA na Caixa. |
 | **Stakeholders** | Áreas de negócio usuárias de IA (operações, atendimento, riscos, compliance, TI e dados), além das áreas de RH/L&D, governança de IA e liderança, responsáveis pela capacitação. |
 | **Critério de sucesso** | O projeto será considerado bem-sucedido quando o modelo recomendar cursos ou trilhas de IA com, no mínimo, 80% de aderência percebida pelos usuários no pós-treinamento, e com taxa de conclusão de no mínimo 70%. |
-    """)
 
-    st.markdown("---")
-    
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>📂 Dataset de treinamento</h3>", unsafe_allow_html=True)
-    st.markdown("""
+---
+
+### 📂 Base de Dados e Variáveis
+
+**Dataset de treinamento**  
 O dataset de treinamento foi construído a partir de benchmarks derivados de um *assessment* previamente realizado com o objetivo de identificar as principais dores e desafios enfrentados pelos colaboradores. Os dados coletados nesse diagnóstico foram tratados e analisados para mapear lacunas de competências e necessidades de treinamento. A partir desse conjunto inicial, aplicou-se a técnica de geração de dados sintéticos (*data augmentation*) baseada em *Large Language Models* (LLMs), permitindo a criação de novas linhas sintéticas coerentes com os padrões observados, ampliando a representatividade do dataset e fortalecendo a robustez do processo de treinamento.
-    """)
 
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>🛡️ Qualidade do Dataset</h3>", unsafe_allow_html=True)
-    st.markdown("""
+**Qualidade do Dataset**  
 Foi desenvolvido um notebook de validação e tratamento de qualidade do dataset com o objetivo de assegurar a integridade dos dados utilizados no treinamento. Esse notebook busca garantir que, mesmo após a geração de dados sintéticos, todas as linhas permaneçam aderentes às regras e restrições do modelo (ex.: formatos, domínios permitidos e coerência entre campos), além de identificar e remover registros duplicados e potenciais inconsistências que possam comprometer a performance e a confiabilidade do modelo.
-    """)
 
-    st.markdown(f"<h3 style='color:{CA_ESCURO};'>⚙️ Metodologia de projeto</h3>", unsafe_allow_html=True)
-    st.markdown("""
+**As 9 Features do Modelo**
+| # | Feature | Tipo | Processamento no Pipeline |
+|---|---------|------|---------------------------|
+| 1 | Área de atuação | Categórica | `OneHotEncoder` |
+| 2 | Função/Cargo | Categórica | `OneHotEncoder` |
+| 3 | Tempo de casa | Numérica | `StandardScaler` |
+| 4 | Já utilizou IA | Binária | `OneHotEncoder` |
+| 5 | Atividade principal | Categórica | `OneHotEncoder` |
+| 6 | Objetivo 6 meses | Categórica | `OneHotEncoder` |
+| 7 | Impacto do erro | Categórica | `OneHotEncoder` |
+| 8 | Forma de uso de IA | Categórica | `OneHotEncoder` |
+| 9 | Nível de programação | Categórica | `OneHotEncoder` |
+
+---
+
+### ⚙️ Metodologia de Projeto (CRISP-DM)
+
 O projeto foi desenvolvido seguindo a metodologia **CRISP-DM**, com fases bem definidas e encadeadas, estruturada nas seguintes etapas:
 
-1. **Entendimento do Negócio (Business Understanding)**
+1. **Entendimento do Negócio (Business Understanding)**  
 Definição dos objetivos do projeto, escopo, premissas, restrições, critérios de sucesso e entendimento do contexto organizacional e do problema a ser resolvido.
-2. **Entendimento dos Dados (Data Understanding)**
+2. **Entendimento dos Dados (Data Understanding)**  
 Coleta inicial dos dados, análise exploratória preliminar, identificação da qualidade dos dados, padrões, inconsistências e principais achados do assessment.
-3. **Preparação dos Dados (Data Preparation)**
+3. **Preparação dos Dados (Data Preparation)**  
 Limpeza, tratamento, transformação e estruturação dos dados, incluindo:
-   * Tratamento de valores ausentes e outliers;
-   * Padronização e enriquecimento das variáveis;
+   * Tratamento de valores ausentes e outliers (`SimpleImputer`).
+   * Padronização e enriquecimento das variáveis.
    * Geração de dados sintéticos, quando aplicável.
-4. **Modelagem (Modeling)**
-Seleção de técnicas e algoritmos adequados, construção dos modelos analíticos e ajuste de parâmetros, com base nos objetivos definidos na etapa de negócio.
-5. **Avaliação (Evaluation)**
-Validação dos modelos desenvolvidos, análise de desempenho frente aos critérios de sucesso estabelecidos e verificação da aderência às necessidades do negócio.
-6. **Implantação / Entrega (Deployment)**
-Consolidação dos resultados, organização dos artefatos finais e disponibilização das entregas do projeto.
+   * Balanceamento das classes (`class_weight='balanced'`).
+4. **Modelagem (Modeling)**  
+Seleção de técnicas e algoritmos adequados (Regressão Logística, Random Forest e Gradient Boosting), construção dos modelos analíticos e ajuste de parâmetros (`RandomizedSearchCV`), com base nos objetivos definidos na etapa de negócio.
+5. **Avaliação (Evaluation)**  
+Validação dos modelos desenvolvidos (Cross-Validation 5-Folds), análise de desempenho frente aos critérios de sucesso estabelecidos (F1-Score Macro e Top-3 Accuracy) e verificação da aderência às necessidades do negócio.
+6. **Implantação / Entrega (Deployment)**  
+Consolidação dos resultados, organização dos artefatos finais e disponibilização das entregas do projeto (Aplicativo Streamlit em Nuvem).
 
 Como resultado da primeira etapa (Entendimento do Negócio e dos Dados), foi elaborado um documento formal em formato PDF, consolidando os objetivos, escopo, premissas, critérios de sucesso e principais achados do assessment. As etapas técnicas foram documentadas por meio de notebooks em Python (exploração dos dados, tratamento, geração de dados sintéticos, modelagem e validação) garantindo transparência, reprodutibilidade e controle técnico do desenvolvimento do projeto.
     """)
