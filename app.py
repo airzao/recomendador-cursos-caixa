@@ -7,18 +7,16 @@ from matplotlib.patches import FancyBboxPatch
 
 st.set_page_config(page_title="Recomendador de Cursos — CAIXA", page_icon="🏦", layout="wide", initial_sidebar_state="collapsed")
 
-# Paleta oficial CAIXA Econômica Federal
-CA_AZUL    = "#0070B8"   # Azul principal
-CA_ESCURO  = "#003F8A"   # Azul escuro
-CA_LARANJA = "#F5A623"   # Laranja destaque
-CA_VERDE   = "#00A859"   # Verde auxiliar
-CA_CINZA   = "#333333"   # Texto
-CA_CLARO   = "#F0F7FF"   # Fundo claro azulado
-CA_BRANCO  = "#FFFFFF"   # Branco
+CA_AZUL    = "#0070B8"
+CA_ESCURO  = "#003F8A"
+CA_LARANJA = "#F5A623"
+CA_VERDE   = "#00A859"
+CA_CINZA   = "#333333"
+CA_CLARO   = "#F0F7FF"
+CA_BRANCO  = "#FFFFFF"
 
 st.markdown("""
 <style>
-/* ── Reset geral para tema claro ── */
 html, body,
 [data-testid="stAppViewContainer"],
 [data-testid="stMain"],
@@ -27,41 +25,24 @@ section.main, .main {
     background-color: #F0F7FF !important;
     color: #333333 !important;
 }
-
-/* ── Labels de todos os inputs ── */
 label,
 [data-testid="stWidgetLabel"],
 [data-testid="stWidgetLabel"] p,
-.stSelectbox label,
-.stRadio label,
-.stSlider label,
-.stNumberInput label {
+.stSelectbox label, .stRadio label, .stSlider label {
     color: #333333 !important;
     font-weight: 600 !important;
     font-size: 0.95rem !important;
 }
-
-/* ── Selectbox ── */
 [data-testid="stSelectbox"] > div > div {
     background-color: #ffffff !important;
     color: #333333 !important;
     border: 1.5px solid #0070B8 !important;
     border-radius: 6px !important;
 }
-
-/* ── Radio ── */
-[data-testid="stRadio"] label p { color: #333333 !important; }
+[data-testid="stRadio"] label p,
 [data-testid="stRadio"] > div { color: #333333 !important; }
-
-/* ── Slider ── */
 [data-testid="stSlider"] p { color: #333333 !important; }
-[data-testid="stSlider"] [data-testid="stTickBarMin"],
-[data-testid="stSlider"] [data-testid="stTickBarMax"] { color: #333333 !important; }
-
-/* ── Texto markdown geral ── */
 .stMarkdown p, .stMarkdown li, .stMarkdown span { color: #333333 !important; }
-
-/* ── Tabs ── */
 .stTabs [data-baseweb="tab-list"] {
     gap: 8px;
     border-bottom: 3px solid #0070B8 !important;
@@ -79,8 +60,6 @@ label,
     background-color: #ffffff !important;
     border-bottom: 3px solid #0070B8 !important;
 }
-
-/* ── Tabelas ── */
 thead tr th {
     background-color: #0070B8 !important;
     color: white !important;
@@ -88,8 +67,6 @@ thead tr th {
 }
 tbody tr td { color: #333333 !important; padding: 8px !important; }
 tbody tr:nth-child(even) td { background-color: #E8F4FF !important; }
-
-/* ── Métricas nativas ── */
 [data-testid="metric-container"] {
     background: white;
     border-radius: 8px;
@@ -97,12 +74,11 @@ tbody tr:nth-child(even) td { background-color: #E8F4FF !important; }
     border: 1px solid #dee2e6;
 }
 [data-testid="metric-container"] label { color: #555555 !important; }
-[data-testid="metric-container"] [data-testid="stMetricValue"] { color: #003F8A !important; font-weight: 900 !important; }
-
-/* ── Divider ── */
+[data-testid="metric-container"] [data-testid="stMetricValue"] {
+    color: #003F8A !important;
+    font-weight: 900 !important;
+}
 hr { border-color: #0070B8 !important; opacity: 0.3; }
-
-/* ── Botão primário ── */
 [data-testid="baseButton-primary"] {
     background-color: #0070B8 !important;
     color: white !important;
@@ -110,28 +86,31 @@ hr { border-color: #0070B8 !important; opacity: 0.3; }
     border-radius: 8px !important;
     border: none !important;
 }
-[data-testid="baseButton-primary"]:hover {
-    background-color: #003F8A !important;
+[data-testid="baseButton-primary"]:hover { background-color: #003F8A !important; }
+
+/* ── Força branco em banners coloridos ── */
+div[style*="background:linear-gradient"] h1,
+div[style*="background:linear-gradient"] h2,
+div[style*="background:linear-gradient"] h3,
+div[style*="background:linear-gradient"] p,
+div[style*="background:linear-gradient"] span,
+div[style*="background:linear-gradient"] b {
+    color: white !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ── HEADER ──────────────────────────────────────────────────────────────────────
 st.markdown(f"""
 <div style="background: linear-gradient(135deg, {CA_AZUL} 0%, {CA_ESCURO} 100%);
             padding: 36px 40px; border-radius: 12px; margin-bottom: 28px;
             box-shadow: 0 6px 24px rgba(0,63,138,0.25);">
-  <div style="display:flex; align-items:center; gap:16px;">
-    <div>
-      <h1 style="color:{CA_BRANCO}; margin:0; font-size:2.4rem; font-weight:900; letter-spacing:-0.5px;">
-        🏦 Recomendador de Trilhas de IA
-      </h1>
-      <p style="color:rgba(255,255,255,0.85); margin:8px 0 0 0; font-size:1.05rem;">
-        Caixa Econômica Federal &nbsp;|&nbsp; Sistema Inteligente de Recomendação &nbsp;|&nbsp;
-        <span style="background:{CA_LARANJA}; color:white; padding:2px 10px; border-radius:12px; font-size:0.85rem; font-weight:700;">ML • Stacking Classifier</span>
-      </p>
-    </div>
-  </div>
+  <h1 style="color:{CA_BRANCO}; margin:0; font-size:2.4rem; font-weight:900; letter-spacing:-0.5px;">
+    🏦 Recomendador de Trilhas de IA
+  </h1>
+  <p style="color:rgba(255,255,255,0.85); margin:8px 0 0 0; font-size:1.05rem;">
+    Caixa Econômica Federal &nbsp;|&nbsp; Sistema Inteligente de Recomendação &nbsp;|&nbsp;
+    <span style="background:{CA_LARANJA}; color:white; padding:2px 10px; border-radius:12px; font-size:0.85rem; font-weight:700;">ML • Stacking Classifier</span>
+  </p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -144,13 +123,10 @@ classes = model.named_steps["model"].classes_
 
 aba1, aba2, aba3, aba4 = st.tabs(["📋 Perfil", "🎯 Recomendação Premium", "📊 Modelo & Métricas", "🎓 Para o Professor"])
 
-# ══════════════════════════════════════════════════════════════════════════
-# ABA 1 — PERFIL
-# ══════════════════════════════════════════════════════════════════════════
+# ══ ABA 1 ══════════════════════════════════════════════════════════════════════
 with aba1:
     st.markdown(f"<h2 style='color:{CA_AZUL}; margin-bottom:4px;'>📋 Perfil do Empregado</h2>", unsafe_allow_html=True)
     st.markdown(f"<p style='color:{CA_CINZA}; margin-top:0; margin-bottom:20px;'>Preencha os dados abaixo para receber recomendações personalizadas.</p>", unsafe_allow_html=True)
-
     col1, col2 = st.columns(2)
     with col1:
         area = st.selectbox("🏢 Área de atuação", ["Agencia Varejo","Atendimento","Controladoria","Credito","Financeiro","Juridico","Operacoes","Prevencao a Fraudes","Riscos","TI"])
@@ -159,7 +135,6 @@ with aba1:
     with col2:
         ja_utilizou_ia = st.radio("🤖 Já utilizou alguma IA?", ["Sim","Nao"], horizontal=True)
         nivel_programacao = st.selectbox("💻 Nível de programação", ["Nenhum","Basico leio ajusto scripts simples","Intermediario desenvolvo scripts aplicacoes com autonomia","Avancado integracoes debugging boas praticas"])
-
     col3, col4 = st.columns(2)
     with col3:
         forma_uso_ia = st.selectbox("🎯 Como pretende usar IA?", ["Ainda nao sei","Como usuario a de negocio sem programar","Como usuario a com ferramentas no code low code","Como desenvolvedor a programando integracoes solucoes","Como gestor a lider definindo prioridades e direcionando uso"])
@@ -167,15 +142,12 @@ with aba1:
     with col4:
         atividade_principal = st.selectbox("📌 Atividade principal", ["Analise de Governaca riscos compliance e controles","Analise para apoio a decisao indicadores desempenho","Atendimento a demandas clientes fornecedores areas internas","Gestao e priorizacao planejamento coordenacao de equipe","Operacao e rotinas administrativas cadastro conferencia","Producao e consolidacao de relatorios apresentacoes","Desenvolvimento de sistemas integracoes APIs"])
         objetivo_ia_6m = st.selectbox("🚀 Objetivo com IA nos próximos 6 meses", ["Ainda estou explorando quero entender possibilidades","Apoiar decisoes com dashboards BI IA","Automatizar tarefas e fluxos","Classificar organizar informacoes ex documentos tickets","Criar assistentes agentes de IA para apoiar equipes","Entender como a IA funciona","Prever resultados ex demanda risco churn fraude desempenho","Outro"])
-
     st.markdown("<br>", unsafe_allow_html=True)
     if st.button("🚀 GERAR RECOMENDAÇÃO PERSONALIZADA", type="primary", use_container_width=True):
         st.session_state["inp"] = pd.DataFrame([{"area":area,"funcao":funcao,"tempo_de_casa":tempo_de_casa,"ja_utilizou_ia":ja_utilizou_ia,"atividade_principal":atividade_principal,"objetivo_ia_6m":objetivo_ia_6m,"impacto_erro_ia":impacto_erro_ia,"forma_uso_ia":forma_uso_ia,"nivel_programacao":nivel_programacao}])
         st.success("✅ Perfil salvo! Vá para a aba **🎯 Recomendação Premium**.")
 
-# ══════════════════════════════════════════════════════════════════════════
-# ABA 2 — RECOMENDAÇÃO
-# ══════════════════════════════════════════════════════════════════════════
+# ══ ABA 2 ══════════════════════════════════════════════════════════════════════
 with aba2:
     st.markdown(f"<h2 style='color:{CA_AZUL};'>🎯 Trilhas Recomendadas para o seu Perfil</h2>", unsafe_allow_html=True)
     if "inp" not in st.session_state:
@@ -190,9 +162,7 @@ with aba2:
             f"linear-gradient(135deg, #4A7C59 0%, #2D5A3D 100%)"
         ]
         borda = [CA_LARANJA, CA_BRANCO, CA_CLARO]
-
         st.markdown(f"<h3 style='color:{CA_ESCURO}; margin-bottom:16px;'>TOP 3 Cursos Recomendados</h3>", unsafe_allow_html=True)
-
         for i, idx in enumerate(top_idx):
             curso, conf = classes[idx], proba[idx]*100
             st.markdown(f"""
@@ -214,28 +184,20 @@ with aba2:
 
         st.divider()
         st.markdown(f"<h3 style='color:{CA_ESCURO};'>📊 Probabilidade — Todos os Cursos</h3>", unsafe_allow_html=True)
-
         col_v1, col_v2 = st.columns([2, 1])
         with col_v1:
             sorted_idx = np.argsort(-proba)
             fig, ax = plt.subplots(figsize=(10, 5))
-            fig.patch.set_facecolor("#F0F7FF")
-            ax.set_facecolor("#ffffff")
+            fig.patch.set_facecolor("#F0F7FF"); ax.set_facecolor("#ffffff")
             colors = [CA_AZUL if j < 3 else "#AAAAAA" for j in range(len(sorted_idx))]
-            bars = ax.barh([classes[i] for i in sorted_idx], [proba[i]*100 for i in sorted_idx], color=colors, height=0.6)
+            ax.barh([classes[i] for i in sorted_idx], [proba[i]*100 for i in sorted_idx], color=colors, height=0.6)
             ax.set_xlabel("Confiança (%)", color=CA_CINZA, fontsize=11, fontweight="bold")
-            ax.tick_params(colors=CA_CINZA, labelsize=10)
-            ax.set_xlim(0, 105)
-            ax.spines["top"].set_visible(False)
-            ax.spines["right"].set_visible(False)
-            ax.spines["left"].set_color("#dddddd")
-            ax.spines["bottom"].set_color("#dddddd")
+            ax.tick_params(colors=CA_CINZA, labelsize=10); ax.set_xlim(0, 105)
+            ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
+            ax.spines["left"].set_color("#dddddd"); ax.spines["bottom"].set_color("#dddddd")
             for i_, idx_ in enumerate(sorted_idx):
-                ax.text(proba[idx_]*100 + 1.5, i_, f"{proba[idx_]*100:.1f}%", va="center", color=CA_CINZA, fontsize=9, fontweight="bold")
-            plt.tight_layout()
-            st.pyplot(fig, use_container_width=True)
-            plt.close()
-
+                ax.text(proba[idx_]*100+1.5, i_, f"{proba[idx_]*100:.1f}%", va="center", color=CA_CINZA, fontsize=9, fontweight="bold")
+            plt.tight_layout(); st.pyplot(fig, use_container_width=True); plt.close()
         with col_v2:
             perfil = st.session_state["inp"].iloc[0]
             st.markdown(f"""
@@ -250,12 +212,9 @@ with aba2:
   <p style="margin:0;color:{CA_AZUL};font-size:0.8rem;font-style:italic;">9 features analisadas pelo modelo</p>
 </div>""", unsafe_allow_html=True)
 
-# ══════════════════════════════════════════════════════════════════════════
-# ABA 3 — MODELO
-# ══════════════════════════════════════════════════════════════════════════
+# ══ ABA 3 ══════════════════════════════════════════════════════════════════════
 with aba3:
     st.markdown(f"<h2 style='color:{CA_AZUL};'>📊 Modelo & Métricas</h2>", unsafe_allow_html=True)
-
     m1, m2, m3, m4 = st.columns(4)
     kpis = [
         (m1, "92,8%", "Accuracy", CA_AZUL, CA_ESCURO),
@@ -275,7 +234,6 @@ with aba3:
 
     st.divider()
     st.markdown(f"<h3 style='color:{CA_ESCURO};'>🧠 Arquitetura — Stacking Classifier</h3>", unsafe_allow_html=True)
-
     arch1, arch2 = st.columns([1.6, 1])
     with arch1:
         st.markdown("""
@@ -293,17 +251,15 @@ with aba3:
     O meta-modelo aprende a ponderar as três predições, resultando em acurácia superior a qualquer modelo isolado.
   </p>
 </div>""", unsafe_allow_html=True)
-
     with arch2:
         fig2, ax2 = plt.subplots(figsize=(5.5, 4.5))
-        fig2.patch.set_facecolor("#F0F7FF")
-        ax2.set_facecolor("#F0F7FF")
+        fig2.patch.set_facecolor("#F0F7FF"); ax2.set_facecolor("#F0F7FF")
         ax2.set_xlim(0, 10); ax2.set_ylim(0, 10); ax2.axis("off")
         bxs = [
-            (0.2, 7.2, 3.5, 1.3, CA_AZUL, "Gradient Boosting"),
-            (0.2, 4.7, 3.5, 1.3, CA_LARANJA, "Random Forest"),
-            (0.2, 2.2, 3.5, 1.3, "#666666", "Logistic Regression"),
-            (5.3, 3.8, 4.2, 2.0, CA_ESCURO, "Meta\nLogistic\nRegression"),
+            (0.2, 7.2, 3.5, 1.3, CA_AZUL,    "Gradient Boosting"),
+            (0.2, 4.7, 3.5, 1.3, CA_LARANJA,  "Random Forest"),
+            (0.2, 2.2, 3.5, 1.3, "#666666",   "Logistic Regression"),
+            (5.3, 3.8, 4.2, 2.0, CA_ESCURO,   "Meta\nLogistic\nRegression"),
         ]
         for x, y, w, h, cor, lbl in bxs:
             ax2.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.15", facecolor=cor, edgecolor="white", linewidth=2.5))
@@ -312,35 +268,24 @@ with aba3:
             ax2.annotate("", xy=(5.3, 4.8), xytext=(3.7, y_s), arrowprops=dict(arrowstyle="->", color=CA_AZUL, lw=2.5))
         ax2.annotate("", xy=(9.8, 4.8), xytext=(9.5, 4.8), arrowprops=dict(arrowstyle="->", color=CA_LARANJA, lw=3.5))
         ax2.text(9.85, 4.8, "🎯", fontsize=18, va="center")
-        plt.tight_layout()
-        st.pyplot(fig2)
-        plt.close()
+        plt.tight_layout(); st.pyplot(fig2); plt.close()
 
     st.divider()
     st.markdown(f"<h3 style='color:{CA_ESCURO};'>📂 Dataset</h3>", unsafe_allow_html=True)
-
     d1, d2, d3, d4 = st.columns(4)
-    d1.metric("👥 Empregados", "9.493")
-    d2.metric("📊 Features", "9")
-    d3.metric("🎓 Cursos", "8")
-    d4.metric("✅ Completude", "100%")
-
-    cursos_l = ["Fundamentos IA", "IA Explicável", "Automação", "IA Negócios", "Prompting", "Agentes IA", "RAG", "ML Negócio"]
+    d1.metric("👥 Empregados", "9.493"); d2.metric("📊 Features", "9"); d3.metric("🎓 Cursos", "8"); d4.metric("✅ Completude", "100%")
+    cursos_l = ["Fundamentos IA","IA Explicável","Automação","IA Negócios","Prompting","Agentes IA","RAG","ML Negócio"]
     qtds_l   = [2375, 1768, 1231, 1129, 904, 871, 774, 441]
     fig3, ax3 = plt.subplots(figsize=(10, 3.8))
     fig3.patch.set_facecolor("#F0F7FF"); ax3.set_facecolor("#ffffff")
-    bars3 = ax3.bar(range(len(cursos_l)), qtds_l, color=CA_AZUL, alpha=0.85, edgecolor=CA_ESCURO, linewidth=1.5, width=0.6)
+    ax3.bar(range(len(cursos_l)), qtds_l, color=CA_AZUL, alpha=0.85, edgecolor=CA_ESCURO, linewidth=1.5, width=0.6)
     ax3.set_ylabel("Quantidade", color=CA_CINZA, fontweight="bold")
-    ax3.set_xticks(range(len(cursos_l)))
-    ax3.set_xticklabels(cursos_l, rotation=30, ha="right", fontsize=9, color=CA_CINZA)
-    ax3.tick_params(colors=CA_CINZA)
-    ax3.spines["top"].set_visible(False); ax3.spines["right"].set_visible(False)
+    ax3.set_xticks(range(len(cursos_l))); ax3.set_xticklabels(cursos_l, rotation=30, ha="right", fontsize=9, color=CA_CINZA)
+    ax3.tick_params(colors=CA_CINZA); ax3.spines["top"].set_visible(False); ax3.spines["right"].set_visible(False)
     ax3.spines["left"].set_color("#dddddd"); ax3.spines["bottom"].set_color("#dddddd")
     for i, v in enumerate(qtds_l):
         ax3.text(i, v+50, str(v), ha="center", va="bottom", color=CA_ESCURO, fontsize=8, fontweight="bold")
-    plt.tight_layout()
-    st.pyplot(fig3)
-    plt.close()
+    plt.tight_layout(); st.pyplot(fig3); plt.close()
 
     st.divider()
     st.markdown(f"<h3 style='color:{CA_ESCURO};'>⚙️ Decisões Técnicas</h3>", unsafe_allow_html=True)
@@ -360,14 +305,11 @@ with aba3:
   <p style="color:{CA_CINZA};margin:4px 0;"><b>💾 Modelo:</b> joblib compress=3 (&lt;10 MB)</p>
 </div>""", unsafe_allow_html=True)
 
-# ══════════════════════════════════════════════════════════════════════════
-# ABA 4 — APRESENTAÇÃO
-# ══════════════════════════════════════════════════════════════════════════
+# ══ ABA 4 ══════════════════════════════════════════════════════════════════════
 with aba4:
     st.markdown(f"<h2 style='color:{CA_AZUL};'>🎓 Documentação para Apresentação</h2>", unsafe_allow_html=True)
-
     st.markdown(f"""
-<div style="background:linear-gradient(135deg, {CA_AZUL} 0%, {CA_ESCURO} 100%);padding:28px 32px;border-radius:14px;color:white;margin-bottom:24px;">
+<div style="background:linear-gradient(135deg, {CA_AZUL} 0%, {CA_ESCURO} 100%);padding:28px 32px;border-radius:14px;margin-bottom:24px;">
   <h3 style="margin:0 0 10px 0;color:white;font-size:1.4rem;">📚 Resumo Executivo</h3>
   <p style="margin:0;font-size:1rem;color:rgba(255,255,255,0.9);line-height:1.6;">
     Sistema inteligente de recomendação de trilhas de Inteligência Artificial
@@ -377,7 +319,6 @@ with aba4:
   </p>
 </div>
 """, unsafe_allow_html=True)
-
     st.markdown("""
 ### 🔍 Problema & Solução
 
@@ -438,4 +379,10 @@ with aba4:
 
 ---
 
+### 💡 Próximos Passos
+
+✅ Pronto para produção — link público e funcional  
+🔜 Feedback loop + retraining periódico  
+🔜 SHAP values para explicar cada predição individualmente  
+🔜 Integração com LMS corporativo
     """)
