@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # Configuração da página
 st.set_page_config(
-    page_title="Recomendador de Cursos — CAIXA", 
+    page_title="Plataforma de Direcionamento Estratégico de Capacitação", 
     page_icon="🏦", 
     layout="wide", 
     initial_sidebar_state="expanded"
@@ -214,7 +214,7 @@ st.markdown(f"""
             padding:32px 40px;border-radius:12px;margin-bottom:24px;
             box-shadow:0 8px 32px rgba(0,63,138,0.2);">
   <h1 style="margin:0;font-size:2.2rem;font-weight:800;letter-spacing:-0.5px;">
-    🏦 Recomendador de Trilhas de IA
+    🏦 Plataforma de Direcionamento Estratégico de Capacitação
   </h1>
   <div style="display:flex;align-items:center;gap:12px;margin-top:12px;">
      <span style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:0.85rem;font-weight:600;">Caixa Econômica Federal</span>
