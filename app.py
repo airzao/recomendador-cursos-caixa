@@ -265,7 +265,7 @@ with aba1:
     # Botão centralizado e grande
     _, col_btn, _ = st.columns([1, 2, 1])
     with col_btn:
-        if st.button("GERAR RECOMENDAÇÃO PERSONALIZADA 🚀", type="primary", use_container_width=True):
+        if st.button("OBTER DIRECIONAMENTO PERSONALIZADO🚀", type="primary", use_container_width=True):
             st.session_state["inp"] = pd.DataFrame([{
                 "area": area,
                 "funcao": funcao,
