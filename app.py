@@ -85,10 +85,8 @@ div[data-baseweb="slider"] { margin-top: 15px; }
 /* Sidebar */
 [data-testid="stSidebar"] { background-color: #ffffff !important; border-right: 1px solid #e0e0e0; }
 
-/* Botão de Ação (CTA) */
-[data-testid="baseButton-primary"],
-[data-testid="baseButton-primary"] *,
-[data-testid="baseButton-primary"] span {
+/* Botão Primary - versão compatível Streamlit novo */
+button[kind="primary"] {
     background: linear-gradient(90deg, #0070B8 0%, #003F8A 100%) !important;
     color: #FFFFFF !important;
     font-weight: 700 !important;
@@ -99,7 +97,11 @@ div[data-baseweb="slider"] { margin-top: 15px; }
     transition: all 0.3s ease;
 }
 
-[data-testid="baseButton-primary"]:hover {
+button[kind="primary"] span {
+    color: #FFFFFF !important;
+}
+
+button[kind="primary"]:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 63, 138, 0.4);
 }
