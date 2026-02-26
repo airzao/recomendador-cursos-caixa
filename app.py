@@ -286,7 +286,7 @@ with aba2:
     if "inp" not in st.session_state:
         st.info("👈 Por favor, preencha o **Perfil** na aba anterior para gerar as recomendações.")
     else:
-        st.markdown(f"<h3 style='color:{CA_ESCURO}; margin-bottom:20px;'>🎯 Trilhas Sugeridas pelo Modelo</h3>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='color:{CA_ESCURO}; margin-bottom:20px;'>🎯 Cursos Sugeridos pelo Modelo</h3>", unsafe_allow_html=True)
         
         proba = model_ativo.predict_proba(st.session_state["inp"])[0]
         top_idx = np.argsort(-proba)[:3]
