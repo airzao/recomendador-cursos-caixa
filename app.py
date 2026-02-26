@@ -18,6 +18,9 @@ CA_BRANCO  = "#FFFFFF"
 # ── CSS: apenas fundo claro + inputs. SEM regra de cor geral em p/span. ──
 st.markdown("""
 <style>
+/* Força texto branco nos banners (evita herança escura) */
+.banner-white, .banner-white * { color: #FFFFFF !important; }
+
 html, body,
 [data-testid="stAppViewContainer"],
 [data-testid="stMain"],
@@ -402,4 +405,5 @@ with aba4:
 - **Frontend:** Streamlit 1.54
 - **Versionamento:** GitHub
 - **Hosting:** Streamlit Cloud (CI/CD automático)
+
     """)
