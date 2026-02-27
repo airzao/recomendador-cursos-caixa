@@ -129,7 +129,8 @@ st.sidebar.markdown(f"<p style='color:{CA_CINZA}; font-size:0.9rem;'>Selecione o
 
 modelo_selecionado = st.sidebar.radio(
     "Algoritmo Ativo:",
-    ["Gradient Boosting", "Random Forest", "Regressão Logística"]
+    ["Gradient Boosting", "Random Forest", "Regressão Logística"],
+    index=0 # Força o GB a ser o modelo selecionado por padrão na tela
 )
 
 # Lógica de Seleção do Modelo
@@ -231,7 +232,6 @@ aba1, aba2, aba3, aba4 = st.tabs(["📋 Perfil & Assessment", "🎯 Recomendaç�
 with aba1:
     st.markdown(f"<h3 style='color:{CA_ESCURO}; border-bottom:2px solid {CA_AZUL}; padding-bottom:8px; margin-bottom:20px;'>1. Dados Funcionais</h3>", unsafe_allow_html=True)
     
-    # CORREÇÃO DO ERRO AQUI: Garantindo 3 colunas para 3 variáveis
     col1, col2, col3 = st.columns(3)
     
     with col1:
