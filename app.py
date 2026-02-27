@@ -419,7 +419,7 @@ with aba4:
             padding:28px 32px;border-radius:14px;margin-bottom:24px;">
   <h3 style="margin:0 0 12px 0;font-size:1.4rem;">📚 Resumo Executivo</h3>
   <p style="margin:0;font-size:1rem;line-height:1.7;">
-    Sistema inteligente de recomendação de trilhas de Inteligência Artificial
+    Sistema inteligente de recomendação de cursos
     para os empregados da
     <span style="font-weight:700;text-decoration:underline;">Caixa Econômica Federal</span>.
     A prova de conceito (PoC) compara três algoritmos: Regressão Logística, Random Forest e Gradient Boosting.
@@ -451,7 +451,7 @@ with aba4:
         </tr>
         <tr>
           <td><b>Solução</b></td>
-          <td>Será desenvolvido um modelo de <i>machine learning</i> para recomendação de curso/trilha de IA com base em um <i>assessment</i> que considera informações reais dos funcionários (perfil funcional, tipo de atividade, objetivo com IA, impacto do erro, forma de uso e nível de programação).</td>
+          <td>Será desenvolvido um modelo de <i>machine learning</i> para recomendação de curso de IA com base em um <i>assessment</i> que considera informações reais dos funcionários (perfil funcional, tipo de atividade, objetivo com IA, impacto do erro, forma de uso e nível de programação).</td>
         </tr>
         <tr>
           <td><b>ROI</b></td>
@@ -463,7 +463,7 @@ with aba4:
         </tr>
         <tr>
           <td><b>Critério de sucesso</b></td>
-          <td>O projeto será considerado bem-sucedido quando o modelo recomendar cursos ou trilhas de IA com, no mínimo, 80% de aderência percebida pelos usuários no pós-treinamento, e com taxa de conclusão de no mínimo 70%.</td>
+          <td>O projeto será considerado bem-sucedido quando o modelo recomendar cursos de IA com, no mínimo, 80% de aderência percebida pelos usuários no pós-treinamento, e com taxa de conclusão de no mínimo 70%.</td>
         </tr>
       </tbody>
     </table>
